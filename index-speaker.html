@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/tabby.min.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.361">
+
+  <meta name="author" content="by Tomasz Woźniak">
+  <title>Bayesian Structural Vector Autoregressions</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css">
+  <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#ff69b4" class="quarto-title-block center">
+  <h1 class="title"><span style="color: #ffd700;">Bayesian Structural Vector Autoregressions</span></h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<span style="color: #ffd700;">by Tomasz Woźniak</span> 
+</div>
+</div>
+</div>
+
+</section>
+<section id="section" class="slide level2" data-background-color="#ff69b4">
+<h2></h2>
+<p><span class="math display">\[ \]</span></p>
+<h3 style="color:#ffd700;" id="structural-vector-autoregressions">Structural Vector Autoregressions</h3>
+<h3 style="color:#ffd700;" id="identification-of-structural-vars">Identification of Structural VARs</h3>
+<h3 style="color:#ffd700;" id="dynamic-causal-effects">Dynamic Causal Effects</h3>
+<h3 style="color:#ffd700;" id="bayesian-estimation">Bayesian Estimation</h3>
+<h3 style="color:#ffd700;" id="monetary-policy-analysis-using-the-bsvars-package">Monetary Policy Analysis Using the <a href="https://cran.r-project.org/package=bsvars">bsvars</a> Package</h3>
+</section>
+<section id="section-1" class="slide level2" data-background-color="#ff69b4">
+<h2></h2>
+<p><img data-src="bsvars.png" class="absolute" style="top: 30px; right: 275px; width: 500px; "></p>
+</section>
+<section id="materials" class="slide level2" data-background-color="#ff69b4">
+<h2><span style="color: #ffd700;">Materials</span></h2>
+<p><span class="math display">\[ \]</span></p>
+<h3 style="color:#ffd700;" id="lecture-slides-as-a-website">Lecture Slides <a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">as a Website</a></h3>
+<h3 style="color:#ffd700;" id="quarto-document-template-for-your-own-australian-monetary-policy-analysis">Quarto <a href="https://github.com/Bayesian-Econometrics-2023/be23-lecture8/blob/main/be23-lecture8.qmd">document template</a> for your own Australian monetary policy analysis</h3>
+<h3 style="color:#ffd700;" id="github-repo-to-reproduce-the-slides-and-results">GitHub <a href="https://github.com/Bayesian-Econometrics-2023/be23-lecture8">repo</a> to reproduce the slides and results</h3>
+<h3 style="color:#ffd700;" id="tasks">Tasks</h3>
+</section>
+<section id="structural-vector-autoregressions-1" class="slide level2" data-background-color="#ff69b4">
+<h2><span style="color: #ffd700;">Structural Vector Autoregressions</span></h2>
+</section>
+<section id="structural-vector-autoregressions-2" class="slide level2">
+<h2>Structural Vector Autoregressions</h2>
+<ul>
+<li>go-to models for the analysis of policy effects</li>
+</ul>
+<div>
+<ul>
+<li class="fragment">facilitate the analysis of <strong>dynamic causal effects</strong> of a well-isolated cause</li>
+<li class="fragment">extensively used for: <em>monetary</em> and <em>fiscal</em> policy, <em>financial</em> markets, …</li>
+<li class="fragment">relatively simple to work with data and provide <em>empirical evidence on the propagation of shocks</em> through economies and markets</li>
+<li class="fragment">provide data-driven stylised facts to be incorporated in theoretical model</li>
+<li class="fragment">require identification of the cause of the dynamic effects</li>
+<li class="fragment">extendible: <em>featuring many variations in specification</em>
+<ul>
+<li class="fragment">non-normality</li>
+<li class="fragment">heteroskedasticity</li>
+<li class="fragment">time-varying parameters</li>
+<li class="fragment">Bayesian</li>
+</ul></li>
+<li class="fragment">Proposed by <a href="https://doi.org/10.2307/1912017">Sims (1980)</a></li>
+</ul>
+</div>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+</section>
+<section id="structural-vector-autoregressions-3" class="slide level2">
+<h2>Structural Vector Autoregressions</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="the-model.">The model.</h3>
+<p><span class="math display">\[\begin{align}
+\text{VAR equation: }&amp;&amp; y_t &amp;= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \boldsymbol\mu_0 + \epsilon_t\\[1ex]
+\text{structural equation: }&amp;&amp; \mathbf{B}\epsilon_t &amp;= u_t\\[1ex]
+\text{structural shocks: }&amp;&amp; u_t |Y_{t-1} &amp;\sim N_N\left(\mathbf{0}_N,\mathbf{I}_N\right)
+\end{align}\]</span></p>
+<div class="fragment">
+<!-- -->
+<h3 id="notation.">Notation.</h3>
+<ul>
+<li><p><span class="math inline">\(\mathbf{B}\)</span> - <span class="math inline">\(N\times N\)</span> structural matrix of contemporaneous relationships</p></li>
+<li><p><span class="math inline">\(u_t\)</span> - <span class="math inline">\(N\)</span>-vector of structural shocks at time <span class="math inline">\(t\)</span></p>
+<p>Isolating these shocks allows us to <em>identify dynamic effects of uncorrelated shocks</em> on variables <span class="math inline">\(y_t\)</span></p></li>
+<li><p><span class="math inline">\(\epsilon_t\)</span> - <span class="math inline">\(N\)</span>-vector with VAR errors at time <span class="math inline">\(t\)</span></p></li>
+<li><p>the rest as in <a href="https://bayesian-econometrics-2023.github.io/be23-lecture7/#/varp-model">Lecture 7: Bayesian VARs</a></p></li>
+</ul>
+</div>
+</section>
+<section id="structural-vector-autoregressions-4" class="slide level2">
+<h2>Structural Vector Autoregressions</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="the-var-errors.">The VAR errors.</h3>
+<p><span class="math display">\[\begin{align}
+&amp;&amp;&amp;\\
+\text{structural equation: }&amp;&amp; \epsilon_t &amp;= \mathbf{B}^{-1}u_t\\[1ex]
+\text{structural shocks: }&amp;&amp; \epsilon_t |Y_{t-1} &amp;\sim N_N\left(\mathbf{0}_N,\Sigma\right)\\[1ex]
+\text{covariance: }&amp;&amp; \mathbf\Sigma &amp;= \mathbf{B}^{-1}\mathbf{B}^{-1\prime} = \Theta_0\Theta_0'
+\end{align}\]</span></p>
+<h3 id="notation.-1">Notation.</h3>
+<ul>
+<li><span class="math inline">\(\mathbf\Sigma\)</span> - <span class="math inline">\(N\times N\)</span> covariance matrix of VAR errors</li>
+<li><span class="math inline">\(\Theta_0 = \mathbf{B}^{-1}\)</span> - <span class="math inline">\(N\times N\)</span> matrix of <strong>contemporaneous effects</strong></li>
+</ul>
+</section>
+<section id="structural-vector-autoregressions-5" class="slide level2">
+<h2>Structural Vector Autoregressions</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<p>Plug the <em>VAR equation</em> into the <em>structural equation</em> to obtain:</p>
+<p><span class="math display">\[\begin{align}
+\mathbf{B}y_t &amp;= \mathbf{B}\mathbf{A}_1 y_{t-1} + \dots + \mathbf{B}\mathbf{A}_p y_{t-p} + \mathbf{B}\boldsymbol\mu_0 + u_t\\[1ex]
+&amp;\\
+\end{align}\]</span></p>
+<h3 id="contemporaneous-relationships.">Contemporaneous relationships.</h3>
+<p>Let <span class="math inline">\(N=2\)</span></p>
+<p><span class="math display">\[\begin{align}
+\mathbf{B}y_t &amp;= \begin{bmatrix}B_{11}&amp;B_{12}\\B_{21}&amp;B_{22}\end{bmatrix}\begin{bmatrix}y_{1t}\\y_{2t}\end{bmatrix}
+\end{align}\]</span></p>
+</section>
+<section id="structural-vector-autoregressions-6" class="slide level2">
+<h2>Structural Vector Autoregressions</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<p>Plug the <em>structural equation</em> for <span class="math inline">\(\epsilon_t\)</span> into the <em>VAR equation</em> to obtain:</p>
+<p><span class="math display">\[\begin{align}
+y_t &amp;= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \boldsymbol\mu_0 + \mathbf{B}^{-1}u_t\\[1ex]
+y_t &amp;= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \boldsymbol\mu_0 + \mathbf{\Theta}_0 u_t
+\end{align}\]</span></p>
+<h3 id="contemporaneous-effects.">Contemporaneous effects.</h3>
+<p>Let <span class="math inline">\(N=2\)</span></p>
+<p><span class="math display">\[\begin{align}
+\begin{bmatrix}y_{1t}\\y_{2t}\end{bmatrix} &amp;= \dots +
+\begin{bmatrix}\Theta_{11}&amp;\Theta_{12}\\\Theta_{21}&amp;\Theta_{22}\end{bmatrix}\begin{bmatrix}u_{1t}\\ u_{2t}\end{bmatrix}
+\end{align}\]</span></p>
+<h3 id="task.">Task.</h3>
+<p>What is the contemporaneous effect of the first shock on the second variable?</p>
+</section>
+<section id="identification-of-structural-vars-1" class="slide level2" data-background-color="#ff69b4">
+<h2><span style="color: #ffd700;">Identification of Structural VARs </span></h2>
+</section>
+<section id="identification-of-svars-simplified" class="slide level2">
+<h2>Identification of SVARs (Simplified)</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="covariance-and-structural-relationships.">Covariance and structural relationships.</h3>
+<p><span class="math display">\[\begin{align}
+&amp;\\
+\mathbf\Sigma &amp;= \mathbf{B}^{-1}\mathbf{B}^{-1\prime}\\[1ex]
+\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(\mathbf\Sigma\)</span> can be estimated using data easily</li>
+</ul>
+<div>
+<ul>
+<li class="fragment">The relationship presents a system of equations to be solved for <span class="math inline">\(\mathbf{B}\)</span></li>
+<li class="fragment"><span class="math inline">\(\mathbf\Sigma\)</span> is a <em>symmetric</em> <span class="math inline">\(N\times N\)</span> matrix</li>
+<li class="fragment"><span class="math inline">\(\mathbf\Sigma\)</span> has <span class="math inline">\(N(N+1)/2\)</span> unique elements given equations</li>
+<li class="fragment"><span class="math inline">\(\mathbf{B}\)</span> is an <span class="math inline">\(N\times N\)</span> matrix with <span class="math inline">\(N^2\)</span> unique elements to estimate</li>
+<li class="fragment">We cannot estimate all elements of <span class="math inline">\(\mathbf{B}\)</span> using <span class="math inline">\(N(N+1)/2\)</span> equations</li>
+<li class="fragment"><span class="math inline">\(\mathbf{B}\)</span> is <text style="color:#ff69b4;"><strong>not identified</strong></text></li>
+</ul>
+</div>
+</section>
+<section id="identification-of-svars-simplified-1" class="slide level2">
+<h2>Identification of SVARs (Simplified)</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="covariance-and-structural-relationships.-1">Covariance and structural relationships.</h3>
+<p><span class="math display">\[\begin{align}
+&amp;\\
+\mathbf\Sigma &amp;= \mathbf{B}^{-1}\mathbf{B}^{-1\prime}\\[1ex]
+\end{align}\]</span></p>
+<h3 id="identification.">Identification.</h3>
+<ul>
+<li>Only <span class="math inline">\(N(N+1)/2\)</span> elements in <span class="math inline">\(\mathbf{B}\)</span> can be estimated</li>
+<li>Impose <span class="math inline">\(N(N-1)/2\)</span> restrictions on <span class="math inline">\(\mathbf{B}\)</span> to solve the equation</li>
+<li>This identifies the rows of <span class="math inline">\(\mathbf{B}\)</span> (and the columns of <span class="math inline">\(\mathbf\Theta_0\)</span>) up to a sign</li>
+<li>Change the sign of any number of <span class="math inline">\(\mathbf{B}\)</span> rows and <span class="math inline">\(\mathbf\Sigma\)</span> will not change</li>
+<li>Often <span class="math inline">\(\mathbf{B}\)</span> is made lower-triangular</li>
+</ul>
+</section>
+<section id="identification-of-svars-simplified-2" class="slide level2">
+<h2>Identification of SVARs (Simplified)</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="covariance-and-structural-relationships.-2">Covariance and structural relationships.</h3>
+<p>Let <span class="math inline">\(N=2\)</span></p>
+<p><span class="math display">\[\begin{align}
+\begin{bmatrix}\sigma_1^2&amp;\sigma_{12}\\ \sigma_{12}&amp;\sigma_2^2\end{bmatrix} &amp;\qquad
+\begin{bmatrix}B_{11}&amp;B_{12}\\ B_{21}&amp;B_{22}\end{bmatrix}\\[1ex]
+\end{align}\]</span></p>
+<ul>
+<li>3 unique elements in <span class="math inline">\(\mathbf\Sigma\)</span> - 3 equations in the system</li>
+<li>4 elements in <span class="math inline">\(\mathbf{B}\)</span> cannot be estimated</li>
+</ul>
+<h3 id="identification.-1">Identification.</h3>
+<p><span class="math display">\[\begin{align}
+\begin{bmatrix}\sigma_1^2&amp;\sigma_{12}\\ \sigma_{12}&amp;\sigma_2^2\end{bmatrix} &amp;\qquad
+\begin{bmatrix}B_{11}&amp; 0\\ B_{21}&amp;B_{22}\end{bmatrix}\\[1ex]
+\end{align}\]</span></p>
+<ul>
+<li>3 equations identify 3 elements in <span class="math inline">\(\mathbf{B}\)</span></li>
+</ul>
+</section>
+<section id="identification-of-monetary-policy-shock" class="slide level2">
+<h2>Identification of Monetary Policy Shock</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<p>Consider a system of four variables:</p>
+<p><span class="math display">\[\begin{align}
+y_t = \begin{bmatrix} \Delta rgdp_t &amp; \pi_t &amp; cr_t &amp; \Delta rtwi_t \end{bmatrix}'
+\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(\Delta rgdp_t\)</span> - real Gross Domestic Product growth</li>
+<li><span class="math inline">\(\pi_t\)</span> - Consumer Price Index inflation</li>
+<li><span class="math inline">\(cr_t\)</span> - Cash Rate Target - Australian nominal interest rate</li>
+<li><span class="math inline">\(\Delta rtwi_t\)</span> - real Trade-Weighted Index rate of return (exchange rate)</li>
+</ul>
+<h3 id="identified-system.">Identified system.</h3>
+<p>A lower-triangular matrix identifies:</p>
+<ul>
+<li>contemporaneous relationships <span class="math inline">\(\mathbf{B}\)</span></li>
+<li>contemporaneous effects <span class="math inline">\(\mathbf\Theta_0\)</span></li>
+<li>structural shocks <span class="math inline">\(u_t\)</span></li>
+</ul>
+</section>
+<section id="identification-of-monetary-policy-shock-1" class="slide level2">
+<h2>Identification of Monetary Policy Shock</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="identified-system.-1">Identified system.</h3>
+<p><span class="math display">\[\begin{align}
+\begin{bmatrix}
+B_{11}&amp;0&amp;0&amp;0\\
+B_{21}&amp;B_{22}&amp;0&amp;0\\
+B_{31}&amp;B_{32}&amp;B_{33}&amp;0\\
+B_{41}&amp;B_{42}&amp;B_{43}&amp;B_{44}
+\end{bmatrix}
+\begin{bmatrix} \Delta rgdp_t \\ \pi_t \\ cr_t \\ \Delta rtwi_t \end{bmatrix} &amp;= \dots +
+\begin{bmatrix} u_t^{ad} \\ u_t^{as} \\ u_t^{mps} \\ u_t^{ex} \end{bmatrix}
+\end{align}\]</span></p>
+<h3 id="identified-shocks.">Identified shocks.</h3>
+<p><span class="math inline">\(u_t^{ad}\)</span> - aggregate demand shock is exogenous to the rest of the system</p>
+<p><span class="math inline">\(u_t^{as}\)</span> - aggregate supply shock</p>
+<p><span class="math inline">\(u_t^{mps}\)</span> - monetary policy shock identified via Taylor’s Rule</p>
+<p><span class="math inline">\(u_t^{ex}\)</span> - currency shock</p>
+</section>
+<section id="identification-of-monetary-policy-shock-2" class="slide level2">
+<h2>Identification of Monetary Policy Shock</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="identified-system.-2">Identified system.</h3>
+<p><span class="math display">\[\begin{align}
+\begin{bmatrix}
+B_{11}&amp;0&amp;0&amp;0\\
+B_{21}&amp;B_{22}&amp;0&amp;0\\
+B_{31}&amp;B_{32}&amp;B_{33}&amp;0\\
+B_{41}&amp;B_{42}&amp;B_{43}&amp;B_{44}
+\end{bmatrix}
+\begin{bmatrix} \Delta rgdp_t \\ \pi_t \\ cr_t \\ \Delta rtwi_t \end{bmatrix} &amp;= \dots +
+\begin{bmatrix} u_t^{ad} \\ u_t^{as} \\ u_t^{mps} \\ u_t^{ex} \end{bmatrix}
+\end{align}\]</span></p>
+<h3 id="tasks.">Tasks.</h3>
+<ul>
+<li>Write out the third equation for the cash rate.</li>
+<li>Let <span class="math inline">\(B_{33}&gt;0\)</span>. What values of <span class="math inline">\(B_{31}\)</span> and <span class="math inline">\(B_{32}\)</span> does theory imply?</li>
+</ul>
+</section>
+<section id="identification-of-monetary-policy-shock-3" class="slide level2">
+<h2>Identification of Monetary Policy Shock</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="identified-system.-3">Identified system.</h3>
+<p><span class="math display">\[\begin{align}
+\begin{bmatrix}
+B_{11}&amp;0&amp;0&amp;0\\
+B_{21}&amp;B_{22}&amp;0&amp;0\\
+B_{31}&amp;B_{32}&amp;B_{33}&amp;0\\
+B_{41}&amp;B_{42}&amp;B_{43}&amp;B_{44}
+\end{bmatrix}
+\begin{bmatrix} \Delta rgdp_t \\ \pi_t \\ cr_t \\ \Delta rtwi_t \end{bmatrix} &amp;= \dots +
+\begin{bmatrix} u_t^{ad} \\ u_t^{as} \\ u_t^{mps} \\ u_t^{ex} \end{bmatrix}
+\end{align}\]</span></p>
+<h3 id="monetary-policy-shock.">Monetary policy shock.</h3>
+<ul>
+<li>is uncorrelated with any other shock</li>
+<li>consists of the unanticipated (unpredictable) part of the <em>monetary policy instrument</em>, interest rate</li>
+<li>In this model, the systematic part of the monetary policy consists of:
+<ul>
+<li>contemporaneous relationships with GDP and inflation</li>
+<li>lagged relationships with all variables</li>
+</ul></li>
+</ul>
+</section>
+<section id="identification-via-heteroskedasticity" class="slide level2">
+<h2>Identification via Heteroskedasticity</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<p>Suppose that:</p>
+<ul>
+<li>there are two covariances, <span class="math inline">\(\mathbf\Sigma_1\)</span> and <span class="math inline">\(\mathbf\Sigma_2\)</span>, associated with the sample</li>
+<li>matrix <span class="math inline">\(\mathbf{B}\)</span> does not change over time</li>
+<li>structural shocks are heteroskedastic with covariances <span class="math inline">\(\text{diag}\left(\boldsymbol\sigma_1^2\right)\)</span> and <span class="math inline">\(\text{diag}\left(\boldsymbol\sigma_2^2\right)\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\mathbf\Sigma_1 &amp;= \mathbf{B}^{-1}\text{diag}\left(\boldsymbol\sigma_1^2\right)\mathbf{B}^{-1\prime}\\[1ex]
+\mathbf\Sigma_2 &amp;= \mathbf{B}^{-1}\text{diag}\left(\boldsymbol\sigma_2^2\right)\mathbf{B}^{-1\prime}
+\end{align}\]</span></p>
+<h3 id="identification.-2">Identification.</h3>
+<ul>
+<li><span class="math inline">\(\mathbf\Sigma_1\)</span> and <span class="math inline">\(\mathbf\Sigma_2\)</span> contain <span class="math inline">\(N^2+N\)</span> unique elements</li>
+<li>All <span class="math inline">\(N^2\)</span> elements of <span class="math inline">\(\mathbf{B}\)</span> can be estimated</li>
+<li>Both <span class="math inline">\(N\)</span>-vectors <span class="math inline">\(\boldsymbol\sigma_1^2\)</span> and <span class="math inline">\(\boldsymbol\sigma_2^2\)</span> can be estimated due to additional restriction: <span class="math inline">\(E\left[\text{diag}\left(\boldsymbol\sigma_i^2\right)\right] = \mathbf{I}_N\)</span></li>
+</ul>
+</section>
+<section id="identification-via-heteroskedasticity-1" class="slide level2">
+<h2>Identification via Heteroskedasticity</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<p>The setup can be generalised to conditional heteroskedasticity of structural shocks</p>
+<p><span class="math display">\[\begin{align}
+u_t |Y_{t-1} &amp;\sim N_N\left(\mathbf{0}_N, \text{diag}\left(\boldsymbol\sigma_t^2\right)\right)\\[1ex]
+\mathbf\Sigma_t &amp;= \mathbf{B}^{-1}\text{diag}\left(\boldsymbol\sigma_t^2\right)\mathbf{B}^{-1\prime}\\[1ex]
+E\left[\text{diag}\left(\boldsymbol\sigma_t^2\right)\right] &amp;= \mathbf{I}_N
+\end{align}\]</span></p>
+<h3 id="identification.-3">Identification.</h3>
+<ul>
+<li>Matrix <span class="math inline">\(\mathbf{B}\)</span> is identified up to its rows’ sign change and equations’ reordering</li>
+<li>Structural shocks’ conditional variances <span class="math inline">\(\boldsymbol\sigma_t^2\)</span> can be estimated</li>
+</ul>
+<h3 id="heteroskedasticity-modeling.">Heteroskedasticity Modeling.</h3>
+<p>Choose any (conditional) variance model for <span class="math inline">\(\boldsymbol\sigma_t^2\)</span> that fits the data well.</p>
+</section>
+<section id="dynamic-causal-effects-1" class="slide level2" data-background-color="#ff69b4">
+<h2><span style="color: #ffd700;">Dynamic Causal Effects</span></h2>
+</section>
+<section id="impulse-response-functions" class="slide level2">
+<h2>Impulse response functions</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="definition.">Definition.</h3>
+<p><strong>Impulse response functions</strong> to <em>orthogonal shocks</em> computed for an empirically relevant SVAR model are considered the <text style="color:#ff69b4;"><strong>dynamic causal effects</strong></text> of the underlying shocks <span class="math inline">\(u_t\)</span> on economic measurements <span class="math inline">\(y_{t+i}\)</span> <span class="math inline">\(i\)</span> periods ahead.</p>
+<p><span class="math display">\[\begin{align*}
+\frac{\partial y_{n.t+i}}{\partial u_{j.t}}&amp;=\theta_{nj.i}
+\end{align*}\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\theta_{nj.i}\)</span> - response of <span class="math inline">\(n\)</span>th variable to <span class="math inline">\(j\)</span>th shock <span class="math inline">\(i\)</span> periods after shock’s occurrence</p>
+<p>for <span class="math inline">\(i=0,1,\dots,h\)</span> and <span class="math inline">\(n,j=1,\dots,N\)</span></p></li>
+</ul>
+</section>
+<section id="impulse-response-functions-1" class="slide level2">
+<h2>Impulse response functions</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="definition.-1">Definition.</h3>
+<p><strong>Impulse response functions</strong> to <em>orthogonal shocks</em> computed for an empirically relevant SVAR model are considered the <text style="color:#ff69b4;"><strong>dynamic causal effects</strong></text> of the underlying shocks <span class="math inline">\(u_t\)</span> on economic measurements <span class="math inline">\(y_{t+i}\)</span> <span class="math inline">\(i\)</span> periods ahead.</p>
+<p><span class="math display">\[\begin{align*}
+\frac{\partial y_{t+i}}{\partial u_t}&amp;=\underset{N\times N}{\mathbf\Theta_i}
+\end{align*}\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\mathbf\Theta_i\)</span> - responses of all of the variables to all of the shocks <span class="math inline">\(i\)</span> periods after shocks’ occurrence</p>
+<p>for <span class="math inline">\(i=0,1,\dots,h\)</span> and <span class="math inline">\(n,j=1,\dots,N\)</span></p></li>
+</ul>
+</section>
+<section id="impulse-response-functions-2" class="slide level2">
+<h2>Impulse response functions</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="at-finite-horizon.">At finite horizon.</h3>
+<p>Define matrices</p>
+<p><span class="math display">\[
+\underset{(pN\times pN)}{\mathbb{A}} = \begin{bmatrix}\mathbf{A}_1 &amp; \mathbf{A}_2 &amp;\dots&amp; \mathbf{A}_p\\ &amp;\mathbf{I}_{N(p-1)}&amp;&amp;\mathbf{0}_{N(p-1)\times N} \end{bmatrix}\quad\text{and}\quad
+\underset{(N\times pN)}{\mathbf{J}} = \begin{bmatrix} \mathbf{I}_{N} &amp; \mathbf{0}_{N\times N(p-1)} \end{bmatrix}
+\]</span> Impulse response at horizon <span class="math inline">\(i=0,1,\dots,h\)</span> are equal to:</p>
+<p><span class="math display">\[\begin{align}
+\mathbf\Theta_i &amp;= \mathbf{J}\mathbb{A}^i\mathbf{J}'\mathbf{B}^{-1}
+\end{align}\]</span> where <span class="math inline">\(\mathbb{A}^0=\mathbf{I}_N\)</span>, <span class="math inline">\(\mathbb{A}^1=\mathbb{A}\)</span>, <span class="math inline">\(\mathbb{A}^2=\mathbb{A}\mathbb{A}\)</span>, …</p>
+<h3 id="at-infinite-horizon.">At infinite horizon.</h3>
+<p>Inform about the value of the effect in the long run.</p>
+<p><span class="math display">\[\begin{align}
+\mathbf\Theta_{\infty} &amp;= \left( \mathbf{I}_N - \mathbf{A}_1 - \dots - \mathbf{A}_p \right)^{-1}\mathbf{B}^{-1}
+\end{align}\]</span></p>
+</section>
+<section id="impulse-response-functions-3" class="slide level2">
+<h2>Impulse response functions</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="bayesian-estimation.">Bayesian Estimation.</h3>
+<h4 id="step-1.-estimate-the-model">Step 1. Estimate the model</h4>
+<p>Obtain a sample from the posterior distribution <span class="math display">\[\left\{ \mathbf{A}^{(s)},\mathbf{B}^{(s)} \right\}_{s=1}^{S}\]</span></p>
+<h4 id="step-2.-compute-impulse-responses">Step 2. Compute impulse responses</h4>
+<p>For each of the <span class="math inline">\(S\)</span> draws, compute <span class="math inline">\(\mathbf\Theta_i^{(s)}\)</span> as a function of <span class="math inline">\(\mathbf{A}^{(s)}\)</span> and <span class="math inline">\(\mathbf{B}^{(s)}\)</span> and return <span class="math display">\[\left\{\mathbf\Theta_i^{(s)}\right\}_{s=1}^{S}\]</span> as a sample drew from the posterior distribution of <span class="math inline">\(\Theta_i\)</span> given data.</p>
+</section>
+<section id="bayesian-estimation-1" class="slide level2" data-background-color="#ff69b4">
+<h2><span style="color: #ffd700;">Bayesian Estimation</span></h2>
+</section>
+<section id="bayesian-estimation-2" class="slide level2">
+<h2>Bayesian Estimation</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<p><span class="math inline">\(\left.\right.\)</span></p>
+<h4 id="gibbs-sampler-by-waggoner-zha-2003"><strong>Gibbs sampler</strong> by <a href="https://doi.org/10.1016/S0165-1889(02)00168-9">Waggoner &amp; Zha (2003)</a></h4>
+<p>facilitates estimation of Bayesian SVARs for</p>
+<ul>
+<li>lower-triangular and non-recursive identification patterns of exclusion restrictions</li>
+<li>over-identifying (more than <span class="math inline">\(N(N − 1)/2)\)</span> exclusion restrictions</li>
+<li>models identified via heteroskedasticity</li>
+</ul>
+<p><span class="math inline">\(\left.\right.\)</span></p>
+<h4 id="further-extensions-include-svars">Further extensions include SVARs</h4>
+<ul>
+<li>identified through non-normal residuals</li>
+<li>identified by zero and sign restrictions</li>
+<li>identified using instrumental variables (Proxy SVARs)</li>
+</ul>
+</section>
+<section id="bayesian-estimation-3" class="slide level2">
+<h2>Bayesian Estimation</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="exclusion-restrictions-on-the-rows-of-mathbfb">Exclusion restrictions on the rows of <span class="math inline">\(\mathbf{B}\)</span></h3>
+<p><span class="math display">\[
+\underset{(1\times N)}{\mathbf{B}_{[n\cdot]}} = \underset{(1\times r_n)}{\mathbf{b}_n} \underset{(r_n\times N)}{V_n} \qquad\text{such that}\qquad
+\mathbf{B} = \begin{bmatrix} \mathbf{b}_1V_1\\ \vdots \\ \mathbf{b}_NV_N \end{bmatrix}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\mathbf{b}_n\)</span> - a <span class="math inline">\(1\times r_n\)</span> vector of unrestricted elements of <span class="math inline">\(n\)</span> row of <span class="math inline">\(\mathbf{B}\)</span></li>
+<li><span class="math inline">\(V_n\)</span> - an <span class="math inline">\(r_n\times N\)</span> <em>fixed</em> matrix of ones and zeros</li>
+</ul>
+<h3 id="example.">Example.</h3>
+<p><span class="math display">\[\mathbf{b}_n = \begin{bmatrix} b_1 &amp; b_2\end{bmatrix}\quad V_n = \begin{bmatrix} 1&amp;0&amp;0\\0&amp;0&amp;1\end{bmatrix} \quad\rightarrow\quad \mathbf{B}_{[n\cdot]} = \begin{bmatrix} b_1&amp;0 &amp; b_2\end{bmatrix}
+\]</span></p>
+</section>
+<section id="bayesian-estimation-4" class="slide level2">
+<h2>Bayesian Estimation</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="the-nth-structural-equation.">The <span class="math inline">\(n\)</span>th Structural Equation.</h3>
+<p><span class="math display">\[\begin{align*}
+\mathbf{b}_nV_n\epsilon_t &amp;= u_{n.t}\\
+u_{n.t} &amp;\sim N(0,1)
+\end{align*}\]</span></p>
+<h3 id="matrix-notation.">Matrix Notation.</h3>
+<p><span class="math display">\[\begin{align*}
+E V_n' \mathbf{b}_n' &amp;= U_n\\
+U_n &amp;\sim N_T\left(\mathbf{0}_T,I_T\right)\\[2ex]
+\underset{(T\times1)}{U_n}  &amp;= \begin{bmatrix} u_{n.1} &amp; \dots &amp; u_{n.T} \end{bmatrix}'\\
+\underset{(T\times N)}{E} &amp;\text{ - defined as before}
+\end{align*}\]</span></p>
+</section>
+<section id="bayesian-estimation-5" class="slide level2">
+<h2>Bayesian Estimation</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="likelihood-function.">Likelihood function.</h3>
+<p><span class="math display">\[\begin{align*}
+L(\mathbf{A},\mathbf{B}|Y,X) &amp;\propto
+|\text{det}\left( \mathbf{B} \right)|^{T}\exp\left\{ -\frac{1}{2}\sum_{n=1}^N \mathbf{b}_nV_nE'EV_n'\mathbf{b}_n' \right\}\\[1ex]
+E &amp;= Y - X\mathbf{A}
+\end{align*}\]</span></p>
+<h3 id="hierarchical-prior-for-mathbfb">Hierarchical prior for <span class="math inline">\(\mathbf{B}\)</span></h3>
+<p><span class="math display">\[\begin{align*}
+\mathbf{b}_n | \gamma_B &amp;\sim N_{r_n}\left(\mathbf{0}_{r_n}, \gamma_B V_n\underline{S}^{-1}V_n'\right)\\[1ex]
+\gamma_B &amp;\sim IG2(\underline{s},\underline{\nu})
+\end{align*}\]</span></p>
+<ul>
+<li><span class="math inline">\(\underline{S}\)</span> - <span class="math inline">\(N\times N\)</span> prior scale matrix</li>
+<li><span class="math inline">\(\underline{s}\)</span> and <span class="math inline">\(\underline{\nu}\)</span> positive scalars of scale and shape</li>
+</ul>
+</section>
+<section id="bayesian-estimation-6" class="slide level2">
+<h2>Bayesian Estimation</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="kernel-of-the-full-conditional-posterior-for-mathbfb">Kernel of the full conditional posterior for <span class="math inline">\(\mathbf{B}\)</span></h3>
+<p><span class="math display">\[\begin{align*}
+p(\mathbf{B}|Y,X,\mathbf{A}, \gamma_B)&amp;\propto
+|\text{det}\left( \mathbf{B} \right)|^{T}\exp\left\{ -\frac{1}{2}\sum_{n=1}^N \mathbf{b}_n \overline{S}_n^{-1}\mathbf{b}_n' \right\}\\[1ex]
+\overline{S}_n^{-1} &amp;= V_n\left[ \gamma_B^{-1}\underline{S}^{-1} + (Y-X\mathbf{A})'(Y-X\mathbf{A}) \right]V_n'\\[2ex]
+\end{align*}\]</span></p>
+<ul>
+<li>This is a kernel of a <em>Generalised-Normal</em> distribution</li>
+<li>A feasible Gibbs sampler was proposed by by <a href="https://doi.org/10.1016/S0165-1889(02)00168-9">Waggoner &amp; Zha (2003)</a></li>
+<li>The Gibbs sampler draws from the full conditional posterior for <span class="math inline">\(n = 1,\dots,N\)</span>: <span class="math display">\[ p(\mathbf{b}_n | \mathbf{b}_1,\dots, \mathbf{b}_{n-1},\mathbf{b}_{n+1}, \mathbf{b}_N, \mathbf{A}, \gamma_B, Y, X) \]</span></li>
+</ul>
+</section>
+<section id="monetary-policy-analysis-using-r-package-bsvars" class="slide level2" data-background-color="#ff69b4">
+<h2><span style="color: #ffd700;">Monetary Policy Analysis Using R Package</span> <a href="https://cran.r-project.org/package=bsvars">bsvars</a></h2>
+</section>
+<section id="bsvars-an-r-package" class="slide level2">
+<h2><a href="https://cran.r-project.org/package=bsvars">bsvars</a> an R Package</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+
+<img data-src="cran.png" class="r-stretch"></section>
+<section id="bsvars-an-r-package-features" class="slide level2">
+<h2><a href="https://cran.r-project.org/package=bsvars">bsvars</a> an R Package: Features</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<ul>
+<li>Bayesian estimation of Structural VARs</li>
+<li>identification via:
+<ul>
+<li>exclusion restrictions</li>
+<li>heteroskedasticity</li>
+<li>non-normality</li>
+</ul></li>
+<li>six heteroskedastic processes</li>
+<li>efficient and fast Gibbs sampler</li>
+<li>excellent computational speed</li>
+<li>frontier econometric techniques</li>
+<li>compiled code using <strong>cpp</strong> via <a href="https://www.rcpp.org"><strong>Rcpp</strong></a> and <a href="https://cran.r-project.org/package=RcppArmadillo"><strong>RcppArmadillo</strong></a></li>
+<li>data analysis in <strong>R</strong></li>
+</ul>
+</section>
+<section id="bsvars-an-r-package-features-1" class="slide level2">
+<h2><a href="https://cran.r-project.org/package=bsvars">bsvars</a> an R Package: Features</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+
+<img data-src="progress.png" class="r-stretch"></section>
+<section id="bsvars-an-r-package-features-2" class="slide level2">
+<h2><a href="https://cran.r-project.org/package=bsvars">bsvars</a> an R Package: Features</h2>
+<div class="footer">
+<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+</div>
+<ul>
+<li>simple model setup using <code>specify_*()</code></li>
+<li>flexibility in setting priors, restrictions, etc.</li>
+<li>one function for estimation <code>estimate()</code></li>
+<li>posterior processing utility functions</li>
+</ul>
+<!-- ### The simplest workflow using pipe. -->
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- library(bsvars) -->
+<!-- data(us_fiscal_lsuw) -->
+<!-- set.seed(1) -->
+<!-- us_fiscal_lsuw |> -->
+<!--   specify_bsvar_sv$new(p = 2) |> -->
+<!--   estimate(S = 1000) |>  -->
+<!--   estimate(S = 5000) |>  -->
+<!--   compute_impulse_responses(horizon = 8) -> irfs -->
+<!-- ``` -->
+<!-- ## Australian Monetary Policy Analysis -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- Based on [Turnip (2017)]( https://doi.org/10.1111/1475-4932.12345) -->
+<!-- ### System of four variables. -->
+<!-- \begin{align} -->
+<!-- y_t = \begin{bmatrix} \Delta rgdp_t & \pi_t & cr_t & \Delta rtwi_t \end{bmatrix}' -->
+<!-- \end{align} -->
+<!-- ### Alternative identification patterns. -->
+<!-- \begin{align} -->
+<!-- \textbf{lower-triangular} && \textbf{extended}\\ -->
+<!-- \begin{bmatrix} -->
+<!-- B_{11}&0&0&0\\ -->
+<!-- B_{21}&B_{22}&0&0\\ -->
+<!-- B_{31}&B_{32}&B_{33}&0\\ -->
+<!-- B_{41}&B_{42}&B_{43}&B_{44} -->
+<!-- \end{bmatrix} -->
+<!-- \begin{bmatrix} \Delta rgdp_t \\ \pi_t \\ cr_t \\ \Delta rtwi_t \end{bmatrix} && -->
+<!-- \begin{bmatrix} -->
+<!-- B_{11}&0&0&0\\ -->
+<!-- B_{21}&B_{22}&0&0\\ -->
+<!-- B_{31}&B_{32}&B_{33}&B_{34}\\ -->
+<!-- B_{41}&B_{42}&B_{43}&B_{44} -->
+<!-- \end{bmatrix} -->
+<!-- \begin{bmatrix} \Delta rgdp_t \\ \pi_t \\ cr_t \\ \Delta rtwi_t \end{bmatrix}  -->
+<!-- \end{align} -->
+<!-- - In the **extended** model, the monetary policy shock is not identified -->
+<!-- - Use identification via heteroskedasticity to identify it -->
+<!-- ## Four-Variable Monetary System -->
+<!-- ```{r} -->
+<!-- #| label: data -->
+<!-- #| cache: true -->
+<!-- #| warning: false -->
+<!-- #| fig-align: "center" -->
+<!-- #| fig-height: 6 -->
+<!-- #| output-location: slide -->
+<!-- # Gross domestic product (GDP); Chain volume -->
+<!-- rgdp_dwnld      = readrba::read_rba(series_id = "GGDPCVGDP") -->
+<!-- rgdp_tmp        = xts::xts(rgdp_dwnld$value, rgdp_dwnld$date, tclass = 'yearqtr') -->
+<!-- drgdp           = na.omit(400 * diff(log(rgdp_tmp))) -->
+<!-- drgdp           = xts::to.quarterly(drgdp, OHLC = FALSE) -->
+<!-- # Consumer price index; All groups; Quarterly change (in per cent) -->
+<!-- picpi_dwnld     = readrba::read_rba(series_id = "GCPIAGSAQP") -->
+<!-- pi              = 4 * xts::xts(picpi_dwnld$value, picpi_dwnld$date, tclass = 'yearqtr') -->
+<!-- pi              = xts::to.quarterly(pi, OHLC = FALSE) -->
+<!-- # Interbank Overnight Cash Rate -->
+<!-- cr_dwnld        = readrba::read_rba(series_id = "FIRMMCRID")   # Cash Rate Target -->
+<!-- cr_tmp          = xts::xts(cr_dwnld$value, cr_dwnld$date) -->
+<!-- cr              = xts::to.quarterly(cr_tmp, OHLC = FALSE) -->
+<!-- # Real Trade-Weighted Index -->
+<!-- rtwi_dwnld      = readrba::read_rba(series_id = "FRERTWI") -->
+<!-- rtwi_tmp        = xts::xts(rtwi_dwnld$value, rtwi_dwnld$date, tclass = 'yearqtr') -->
+<!-- rtwi            = 100 * na.omit(diff(log(rtwi_tmp))) -->
+<!-- drtwi            = xts::to.quarterly(rtwi, OHLC = FALSE) -->
+<!-- y               = na.omit(merge(drgdp, pi, cr, drtwi)) -->
+<!-- plot(y, main = "Australian monetary system",  -->
+<!--      legend.loc = "bottomleft", col = c("#FF00FF","#990099","#ff69b4","#330033")) -->
+<!-- ``` -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ## Estimation Setup -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ```{r} -->
+<!-- # setup -->
+<!-- ############################################################ -->
+<!-- library(bsvars) -->
+<!-- set.seed(123) -->
+<!-- N       = ncol(y) -->
+<!-- p       = 9 -->
+<!-- S_burn  = 1e4 -->
+<!-- S       = 2e4 -->
+<!-- thin    = 2 -->
+<!-- ``` -->
+<!-- ## Extended Model Identification Setup -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ```{r} -->
+<!-- # structural matrix - extended model -->
+<!-- ############################################################ -->
+<!-- B_LR = matrix(TRUE, N, N) -->
+<!-- B_LR[upper.tri(B_LR)] = FALSE -->
+<!-- B_LR[3,4] = TRUE -->
+<!-- B_LR -->
+<!-- ``` -->
+<!-- ## Alternative Models Estimation -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ### Lower-triangular model with zero prior mean for $\mathbf{A}$. -->
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- # estimation - lower-triangular model -->
+<!-- ############################################################ -->
+<!-- spec_bsvar0     = specify_bsvar$new(as.matrix(y), p = p, stationary = rep(TRUE, N)) -->
+<!-- spec_bsvar0 |>  -->
+<!--   estimate(S = S_burn) |>  -->
+<!--   estimate(S = S, thin = thin) -> soe_bsvar0 -->
+<!-- ``` -->
+<!-- ## Alternative Models Estimation -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ### Lower-triangular model with MLE prior mean for $\mathbf{A}$. -->
+<!-- ```{r} -->
+<!-- #| code-line-numbers: "5-9" -->
+<!-- #| eval: false -->
+<!-- # estimation - lower-triangular model - MLE prior for A -->
+<!-- ############################################################ -->
+<!-- spec_bsvar      = specify_bsvar$new(as.matrix(y), p = p, stationary = rep(TRUE, N)) -->
+<!-- A_mle           = t(solve( -->
+<!--   tcrossprod(spec_bsvar$data_matrices$X),  -->
+<!--   tcrossprod(spec_bsvar$data_matrices$X, spec_bsvar$data_matrices$Y) -->
+<!-- )) -->
+<!-- spec_bsvar$prior$A = A_mle -->
+<!-- spec_bsvar |>  -->
+<!--   estimate(S = S_burn) |>  -->
+<!--   estimate(S = S, thin = thin) -> soe_bsvar -->
+<!-- ``` -->
+<!-- ## Alternative Models Estimation -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ### Extended model with MLE prior mean for $\mathbf{A}$. -->
+<!-- ```{r} -->
+<!-- #| code-line-numbers: "3-4" -->
+<!-- #| eval: false -->
+<!-- # estimation - extended model - MLE prior for A -->
+<!-- ############################################################ -->
+<!-- spec_bsvar_lr   = specify_bsvar$new(as.matrix(y), p = p, B = B_LR, stationary = rep(TRUE, N)) -->
+<!-- spec_bsvar_lr$prior$A = A_mle -->
+<!-- spec_bsvar_lr |>  -->
+<!--   estimate(S = S_burn) |>  -->
+<!--   estimate(S = S, thin = thin) -> soe_bsvar_lr -->
+<!-- ``` -->
+<!-- ## Alternative Models Estimation -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ### Lower-triangular model with Markov-switching heteroskedastisity. -->
+<!-- ```{r} -->
+<!-- #| code-line-numbers: "3-4" -->
+<!-- #| eval: false -->
+<!-- # estimation - lower-triangular MS heteroskedastic model -->
+<!-- ############################################################ -->
+<!-- spec_bsvar_msh    = specify_bsvar_msh$new(as.matrix(y), p = p, M = 2, stationary = rep(TRUE, N)) -->
+<!-- spec_bsvar_msh$prior$A = A_mle -->
+<!-- spec_bsvar_msh |>  -->
+<!--   estimate(S = S_burn) |>  -->
+<!--   estimate(S = S, thin = thin) -> soe_bsvar_msh -->
+<!-- ``` -->
+<!-- ## Alternative Models Estimation -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ### Extended model with Markov-switching heteroskedastisity. -->
+<!-- ```{r} -->
+<!-- #| code-line-numbers: "3" -->
+<!-- #| eval: false -->
+<!-- # estimation - extended MS heteroskedastic model -->
+<!-- ############################################################ -->
+<!-- spec_bsvar_lr_msh = specify_bsvar_msh$new(as.matrix(y), p = p, B = B_LR, M = 2, stationary = rep(TRUE, N)) -->
+<!-- spec_bsvar_lr_msh$prior$A = A_mle -->
+<!-- spec_bsvar_lr_msh |>  -->
+<!--   estimate(S = S_burn) |>  -->
+<!--   estimate(S = S, thin = thin) -> soe_bsvar_lr_msh -->
+<!-- ``` -->
+<!-- ## Alternative Models Estimation -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ### Lower-triangular model with Stochastic Volatility heteroskedastisity. -->
+<!-- ```{r} -->
+<!-- #| code-line-numbers: "3" -->
+<!-- #| eval: false -->
+<!-- # estimation - lower-triangular SV heteroskedastic model -->
+<!-- ############################################################ -->
+<!-- spec_bsvar_sv = specify_bsvar_sv$new(as.matrix(y), p = p, stationary = rep(TRUE, N)) -->
+<!-- spec_bsvar_sv$prior$A = A_mle -->
+<!-- spec_bsvar_sv |> -->
+<!--   estimate(S = S_burn) |>  -->
+<!--   estimate(S = S, thin = thin) -> soe_bsvar_sv -->
+<!-- ``` -->
+<!-- ## Alternative Models Estimation -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ### Extended model with Stochastic Volatility heteroskedastisity. -->
+<!-- ```{r} -->
+<!-- #| code-line-numbers: "3" -->
+<!-- #| eval: false -->
+<!-- # estimation - extended SV heteroskedastic model -->
+<!-- ############################################################ -->
+<!-- spec_bsvar_lr_sv = specify_bsvar_sv$new(as.matrix(y), p = p, B = B_LR, stationary = rep(TRUE, N)) -->
+<!-- spec_bsvar_lr_sv$prior$A = A_mle -->
+<!-- spec_bsvar_lr_sv |> -->
+<!--   estimate(S = S_burn) |>  -->
+<!--   estimate(S = S, thin = thin) -> soe_bsvar_lr_sv -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| cache: true -->
+<!-- load("soe_bsvar.rda") -->
+<!-- ``` -->
+<!-- ## IRFs: Compute impulse responses -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ```{r} -->
+<!-- #| cache: true -->
+<!-- ir_bsvar0       = compute_impulse_responses(soe_bsvar0, horizon = 20) -->
+<!-- ir_bsvar0[,3,,] = 0.25 * ir_bsvar0[,3,,] / mean(ir_bsvar0[3,3,1,]) -->
+<!-- ir_bsvar        = compute_impulse_responses(soe_bsvar, horizon = 20) -->
+<!-- ir_bsvar[,3,,]  = 0.25 * ir_bsvar[,3,,] / mean(ir_bsvar[3,3,1,]) -->
+<!-- ir_bsvar_lr        = compute_impulse_responses(soe_bsvar_lr, horizon = 20) -->
+<!-- ir_bsvar_lr[,3,,]  = 0.25 * ir_bsvar_lr[,3,,] / mean(ir_bsvar_lr[3,3,1,]) -->
+<!-- ir_bsvar_msh        = compute_impulse_responses(soe_bsvar_msh, horizon = 20) -->
+<!-- ir_bsvar_msh[,3,,]  = 0.25 * ir_bsvar_msh[,3,,] / mean(ir_bsvar_msh[3,3,1,]) -->
+<!-- ir_bsvar_lr_msh        = compute_impulse_responses(soe_bsvar_lr_msh, horizon = 20) -->
+<!-- ir_bsvar_lr_msh[,3,,]  = 0.25 * ir_bsvar_lr_msh[,3,,] / mean(ir_bsvar_lr_msh[3,3,1,]) -->
+<!-- ir_bsvar_sv        = compute_impulse_responses(soe_bsvar_sv, horizon = 20) -->
+<!-- ir_bsvar_sv[,3,,]  = 0.25 * ir_bsvar_sv[,3,,] / mean(ir_bsvar_sv[3,3,1,]) -->
+<!-- ir_bsvar_lr_sv        = compute_impulse_responses(soe_bsvar_lr_sv, horizon = 20) -->
+<!-- ir_bsvar_lr_sv[,3,,]  = 0.25 * ir_bsvar_lr_sv[,3,,] / mean(ir_bsvar_lr_sv[3,3,1,]) -->
+<!-- ``` -->
+<!-- ## IRFs: Zero vs. MLE prior mean -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| fig-align: "center" -->
+<!-- #| fig-height: 8 -->
+<!-- par(mfrow = c(4,2)) -->
+<!-- for (n in 1:4) { -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     ir_bsvar0[n,3,,], -->
+<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "horizon [quarters]", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 0) -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     ir_bsvar[n,3,,], -->
+<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "horizon [quarters]", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 0) -->
+<!-- } -->
+<!-- ``` -->
+<!-- ## IRFs: Recursive vs. Extended (homosk) -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| fig-align: "center" -->
+<!-- #| fig-height: 8 -->
+<!-- par(mfrow = c(4,2)) -->
+<!-- for (n in 1:4) { -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     ir_bsvar[n,3,,], -->
+<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "horizon [quarters]", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 0) -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     ir_bsvar_lr[n,3,,], -->
+<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "horizon [quarters]", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 0) -->
+<!-- } -->
+<!-- ``` -->
+<!-- ## IRFs: Homosk vs. MSH vs. SV (Recursive) -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| fig-align: "center" -->
+<!-- #| fig-height: 7 -->
+<!-- par(mfrow = c(4,3)) -->
+<!-- for (n in 1:4) { -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     ir_bsvar[n,3,,], -->
+<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "horizon [quarters]", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 0) -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     ir_bsvar_msh[n,3,,], -->
+<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "horizon [quarters]", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 0) -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     ir_bsvar_sv[n,3,,], -->
+<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "horizon [quarters]", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 0) -->
+<!-- } -->
+<!-- ``` -->
+<!-- ## IRFs: Homosk vs. MSH vs. SV (Extended) -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| fig-align: "center" -->
+<!-- #| fig-height: 7 -->
+<!-- par(mfrow = c(4,3)) -->
+<!-- for (n in 1:4) { -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     ir_bsvar_lr[n,3,,], -->
+<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "horizon [quarters]", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 0) -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     ir_bsvar_lr_msh[n,3,,], -->
+<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "horizon [quarters]", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 0) -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     ir_bsvar_lr_sv[n,3,,], -->
+<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "horizon [quarters]", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 0) -->
+<!-- } -->
+<!-- ``` -->
+<!-- ## SDs: MSH vs. SV (Recursive) -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| fig-align: "center" -->
+<!-- #| fig-height: 7 -->
+<!-- sd_msh  = compute_conditional_sd(soe_bsvar_msh) -->
+<!-- sd_sv   = compute_conditional_sd(soe_bsvar_sv) -->
+<!-- par(mfrow = c(4,2)) -->
+<!-- for (n in 1:4) { -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     sd_msh[n,,], -->
+<!--     main = paste("SD of",colnames(y)[n]), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "time", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 1) -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     sd_sv[n,,], -->
+<!--     main = paste("SD of",colnames(y)[n]), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "time", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 1) -->
+<!-- } -->
+<!-- ``` -->
+<!-- ## SDs: MSH vs. SV (Extended) -->
+<!-- ::: footer -->
+<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
+<!-- ::: -->
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| fig-align: "center" -->
+<!-- #| fig-height: 7 -->
+<!-- sd_msh  = compute_conditional_sd(soe_bsvar_lr_msh) -->
+<!-- sd_sv   = compute_conditional_sd(soe_bsvar_lr_sv) -->
+<!-- par(mfrow = c(4,2)) -->
+<!-- for (n in 1:4) { -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     sd_msh[n,,], -->
+<!--     main = paste("SD of",colnames(y)[n]), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "time", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 1) -->
+<!--   bsvarTVPs::ribbon_plot( -->
+<!--     sd_sv[n,,], -->
+<!--     main = paste("SD of",colnames(y)[n]), -->
+<!--     ylab = colnames(y)[n], -->
+<!--     xlab = "time", -->
+<!--     bty  = "n", -->
+<!--     col = "#ff69b4" -->
+<!--   ) -->
+<!--   abline(h = 1) -->
+<!-- } -->
+<!-- ``` -->
+</section>
+<section id="bsvars-bayesian-estimation-of-structural-vector-autoregressive-models" class="slide level2" data-background-color="#ff69b4">
+<h2><a href="https://cran.r-project.org/package=bsvars">bsvars:</a> <span style="color: #ffd700;">Bayesian Estimation of Structural Vector Autoregressive Models</span></h2>
+<div class="footer footer-default">
+
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="index_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/multiplex/socket.io.js"></script>
+  <script src="index_files/libs/revealjs/plugin/multiplex/multiplex.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="index_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'multiplex': {"secret":"17284366199746280738","id":"6e2e39788ec25fa7","url":"https://reveal-multiplex.glitch.me/"},
+'smaller': true,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'concave',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
