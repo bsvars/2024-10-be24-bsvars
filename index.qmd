@@ -438,7 +438,7 @@ plot(
   bty="n", pch = 16,
   ylab = "y", xlab = "x",
   axes = FALSE,
-  main = "normal"
+  main = "homoskedastic and normal"
 )
 abline(a = 0, b = 1, col = "#ffd700")
 abline(a = 0, b = -1, col = "#ffd700")
@@ -450,7 +450,7 @@ plot(
   bty="n", pch = 16,
   ylab = "", xlab = "x",
   axes = FALSE,
-  main = "Student-t"
+  main = "heteroskedastic or non-normal"
 )
 abline(a = 0, b = 1, col = "#ffd700")
 abline(a = 0, b = -1, col = "#ffd700")
