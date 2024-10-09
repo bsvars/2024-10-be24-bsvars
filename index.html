@@ -29,6 +29,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -352,9 +417,9 @@
 <section id="materials" class="slide level2" data-background-color="#ff69b4">
 <h2><span style="color: #ffd700;">Materials</span></h2>
 <p><span class="math display">\[ \]</span></p>
-<h3 style="color:#ffd700;" id="lecture-slides-as-a-website">Lecture Slides <a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">as a Website</a></h3>
-<h3 style="color:#ffd700;" id="quarto-document-template-for-your-own-australian-monetary-policy-analysis">Quarto <a href="https://github.com/Bayesian-Econometrics-2023/be23-lecture8/blob/main/be23-lecture8.qmd">document template</a> for your own Australian monetary policy analysis</h3>
-<h3 style="color:#ffd700;" id="github-repo-to-reproduce-the-slides-and-results">GitHub <a href="https://github.com/Bayesian-Econometrics-2023/be23-lecture8">repo</a> to reproduce the slides and results</h3>
+<h3 style="color:#ffd700;" id="lecture-slides-as-a-website">Lecture Slides <a href="https://bsvars.github.io/2024-10-be24-bsvars">as a Website</a></h3>
+<h3 style="color:#ffd700;" id="r-script-for-your-own-australian-monetary-policy-analysis"><a href="https://github.com/bsvars/2024-10-be24-bsvars/blob/main/be24-bsvars.R">R script</a> for your own Australian monetary policy analysis</h3>
+<h3 style="color:#ffd700;" id="github-repo-to-reproduce-the-slides-and-results">GitHub <a href="https://github.com/bsvars/2024-10-be24-bsvars">repo</a> to reproduce the slides and results</h3>
 <h3 style="color:#ffd700;" id="tasks">Tasks</h3>
 </section>
 <section id="structural-vector-autoregressions-1" class="slide level2" data-background-color="#ff69b4">
@@ -383,13 +448,13 @@
 </ul>
 </div>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 </section>
 <section id="structural-vector-autoregressions-3" class="slide level2">
 <h2>Structural Vector Autoregressions</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="the-model.">The model.</h3>
 <p><span class="math display">\[\begin{align}
@@ -404,33 +469,33 @@
 <li><p><span class="math inline">\(\mathbf{B}\)</span> - <span class="math inline">\(N\times N\)</span> structural matrix of contemporaneous relationships</p></li>
 <li><p><span class="math inline">\(u_t\)</span> - <span class="math inline">\(N\)</span>-vector of structural shocks at time <span class="math inline">\(t\)</span></p>
 <p>Isolating these shocks allows us to <em>identify dynamic effects of uncorrelated shocks</em> on variables <span class="math inline">\(y_t\)</span></p></li>
-<li><p><span class="math inline">\(\epsilon_t\)</span> - <span class="math inline">\(N\)</span>-vector with VAR errors at time <span class="math inline">\(t\)</span></p></li>
-<li><p>the rest as in <a href="https://bayesian-econometrics-2023.github.io/be23-lecture7/#/varp-model">Lecture 7: Bayesian VARs</a></p></li>
+<li><p><span class="math inline">\(\epsilon_t\)</span> - <span class="math inline">\(N\)</span>-vector with error terms at time <span class="math inline">\(t\)</span></p></li>
+<li><p>the rest as in the lecture on <a href="https://bsvars.github.io/2024-10-be24-bsvarSIGNs/#/varp-model">Bayesian VARs</a></p></li>
 </ul>
 </div>
 </section>
 <section id="structural-vector-autoregressions-4" class="slide level2">
 <h2>Structural Vector Autoregressions</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="the-var-errors.">The VAR errors.</h3>
 <p><span class="math display">\[\begin{align}
 &amp;&amp;&amp;\\
-\text{structural equation: }&amp;&amp; \epsilon_t &amp;= \mathbf{B}^{-1}u_t\\[1ex]
-\text{structural shocks: }&amp;&amp; \epsilon_t |Y_{t-1} &amp;\sim N_N\left(\mathbf{0}_N,\Sigma\right)\\[1ex]
+\text{structural equation: }&amp;&amp; \epsilon_t &amp;= \mathbf{B}^{-1}u_t = \mathbf{\Theta}_0 u_t\\[1ex]
+\text{error terms: }&amp;&amp; \epsilon_t |Y_{t-1} &amp;\sim N_N\left(\mathbf{0}_N,\Sigma\right)\\[1ex]
 \text{covariance: }&amp;&amp; \mathbf\Sigma &amp;= \mathbf{B}^{-1}\mathbf{B}^{-1\prime} = \Theta_0\Theta_0'
 \end{align}\]</span></p>
 <h3 id="notation.-1">Notation.</h3>
 <ul>
-<li><span class="math inline">\(\mathbf\Sigma\)</span> - <span class="math inline">\(N\times N\)</span> covariance matrix of VAR errors</li>
+<li><span class="math inline">\(\mathbf\Sigma\)</span> - <span class="math inline">\(N\times N\)</span> covariance matrix of error terms</li>
 <li><span class="math inline">\(\Theta_0 = \mathbf{B}^{-1}\)</span> - <span class="math inline">\(N\times N\)</span> matrix of <strong>contemporaneous effects</strong></li>
 </ul>
 </section>
 <section id="structural-vector-autoregressions-5" class="slide level2">
 <h2>Structural Vector Autoregressions</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <p>Plug the <em>VAR equation</em> into the <em>structural equation</em> to obtain:</p>
 <p><span class="math display">\[\begin{align}
@@ -446,7 +511,7 @@
 <section id="structural-vector-autoregressions-6" class="slide level2">
 <h2>Structural Vector Autoregressions</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <p>Plug the <em>structural equation</em> for <span class="math inline">\(\epsilon_t\)</span> into the <em>VAR equation</em> to obtain:</p>
 <p><span class="math display">\[\begin{align}
@@ -468,7 +533,7 @@ y_t &amp;= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \boldsymbol\mu_
 <section id="identification-of-svars-simplified" class="slide level2">
 <h2>Identification of SVARs (Simplified)</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="covariance-and-structural-relationships.">Covariance and structural relationships.</h3>
 <p><span class="math display">\[\begin{align}
@@ -492,7 +557,7 @@ y_t &amp;= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \boldsymbol\mu_
 <section id="identification-of-svars-simplified-1" class="slide level2">
 <h2>Identification of SVARs (Simplified)</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="covariance-and-structural-relationships.-1">Covariance and structural relationships.</h3>
 <p><span class="math display">\[\begin{align}
@@ -511,7 +576,7 @@ y_t &amp;= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \boldsymbol\mu_
 <section id="identification-of-svars-simplified-2" class="slide level2">
 <h2>Identification of SVARs (Simplified)</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="covariance-and-structural-relationships.-2">Covariance and structural relationships.</h3>
 <p>Let <span class="math inline">\(N=2\)</span></p>
@@ -535,7 +600,7 @@ y_t &amp;= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \boldsymbol\mu_
 <section id="identification-of-monetary-policy-shock" class="slide level2">
 <h2>Identification of Monetary Policy Shock</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <p>Consider a system of four variables:</p>
 <p><span class="math display">\[\begin{align}
@@ -558,7 +623,7 @@ y_t = \begin{bmatrix} \Delta rgdp_t &amp; \pi_t &amp; cr_t &amp; \Delta rtwi_t \
 <section id="identification-of-monetary-policy-shock-1" class="slide level2">
 <h2>Identification of Monetary Policy Shock</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="identified-system.-1">Identified system.</h3>
 <p><span class="math display">\[\begin{align}
@@ -580,7 +645,7 @@ B_{41}&amp;B_{42}&amp;B_{43}&amp;B_{44}
 <section id="identification-of-monetary-policy-shock-2" class="slide level2">
 <h2>Identification of Monetary Policy Shock</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="identified-system.-2">Identified system.</h3>
 <p><span class="math display">\[\begin{align}
@@ -602,7 +667,7 @@ B_{41}&amp;B_{42}&amp;B_{43}&amp;B_{44}
 <section id="identification-of-monetary-policy-shock-3" class="slide level2">
 <h2>Identification of Monetary Policy Shock</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="identified-system.-3">Identified system.</h3>
 <p><span class="math display">\[\begin{align}
@@ -617,8 +682,8 @@ B_{41}&amp;B_{42}&amp;B_{43}&amp;B_{44}
 \end{align}\]</span></p>
 <h3 id="monetary-policy-shock.">Monetary policy shock.</h3>
 <ul>
-<li>is uncorrelated with any other shock</li>
-<li>consists of the unanticipated (unpredictable) part of the <em>monetary policy instrument</em>, interest rate</li>
+<li>is uncorrelated with any other shocks</li>
+<li>consists of the unanticipated part of the <em>monetary policy instrument</em>, interest rate</li>
 <li>In this model, the systematic part of the monetary policy consists of:
 <ul>
 <li>contemporaneous relationships with GDP and inflation</li>
@@ -626,56 +691,41 @@ B_{41}&amp;B_{42}&amp;B_{43}&amp;B_{44}
 </ul></li>
 </ul>
 </section>
-<section id="identification-via-heteroskedasticity" class="slide level2">
-<h2>Identification via Heteroskedasticity</h2>
+<section id="alternative-identification" class="slide level2">
+<h2>Alternative Identification</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
-<p>Suppose that:</p>
-<ul>
-<li>there are two covariances, <span class="math inline">\(\mathbf\Sigma_1\)</span> and <span class="math inline">\(\mathbf\Sigma_2\)</span>, associated with the sample</li>
-<li>matrix <span class="math inline">\(\mathbf{B}\)</span> does not change over time</li>
-<li>structural shocks are heteroskedastic with covariances <span class="math inline">\(\text{diag}\left(\boldsymbol\sigma_1^2\right)\)</span> and <span class="math inline">\(\text{diag}\left(\boldsymbol\sigma_2^2\right)\)</span></li>
-</ul>
+<h3 id="identified-system.-4">Identified system.</h3>
 <p><span class="math display">\[\begin{align}
-\mathbf\Sigma_1 &amp;= \mathbf{B}^{-1}\text{diag}\left(\boldsymbol\sigma_1^2\right)\mathbf{B}^{-1\prime}\\[1ex]
-\mathbf\Sigma_2 &amp;= \mathbf{B}^{-1}\text{diag}\left(\boldsymbol\sigma_2^2\right)\mathbf{B}^{-1\prime}
+\begin{bmatrix}
+B_{11}&amp;B_{12}&amp;B_{13}&amp;B_{14}\\
+B_{21}&amp;B_{22}&amp;B_{23}&amp;B_{24}\\
+B_{31}&amp;B_{32}&amp;B_{33}&amp;B_{34}\\
+B_{41}&amp;B_{42}&amp;B_{43}&amp;B_{44}
+\end{bmatrix}
+\begin{bmatrix} \Delta rgdp_t \\ \pi_t \\ cr_t \\ \Delta rtwi_t \end{bmatrix} &amp;= \dots +
+\begin{bmatrix} u_t^{ad} \\ u_t^{as} \\ u_t^{mps} \\ u_t^{ex} \end{bmatrix}
 \end{align}\]</span></p>
 <h3 id="identification.-2">Identification.</h3>
-<ul>
-<li><span class="math inline">\(\mathbf\Sigma_1\)</span> and <span class="math inline">\(\mathbf\Sigma_2\)</span> contain <span class="math inline">\(N^2+N\)</span> unique elements</li>
-<li>All <span class="math inline">\(N^2\)</span> elements of <span class="math inline">\(\mathbf{B}\)</span> can be estimated</li>
-<li>Both <span class="math inline">\(N\)</span>-vectors <span class="math inline">\(\boldsymbol\sigma_1^2\)</span> and <span class="math inline">\(\boldsymbol\sigma_2^2\)</span> can be estimated due to additional restriction: <span class="math inline">\(E\left[\text{diag}\left(\boldsymbol\sigma_i^2\right)\right] = \mathbf{I}_N\)</span></li>
-</ul>
-</section>
-<section id="identification-via-heteroskedasticity-1" class="slide level2">
-<h2>Identification via Heteroskedasticity</h2>
-<div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
-</div>
-<p>The setup can be generalised to conditional heteroskedasticity of structural shocks</p>
-<p><span class="math display">\[\begin{align}
-u_t |Y_{t-1} &amp;\sim N_N\left(\mathbf{0}_N, \text{diag}\left(\boldsymbol\sigma_t^2\right)\right)\\[1ex]
-\mathbf\Sigma_t &amp;= \mathbf{B}^{-1}\text{diag}\left(\boldsymbol\sigma_t^2\right)\mathbf{B}^{-1\prime}\\[1ex]
-E\left[\text{diag}\left(\boldsymbol\sigma_t^2\right)\right] &amp;= \mathbf{I}_N
+<p>Assume the structural shocks are: <span class="math display">\[\begin{align}
+\text{heteroskedastic: }&amp;&amp; u_t^{(i)}\mid\mathbf{Y}_{t-1} &amp;\sim N(0,\sigma_{i.t}^2) \\
+\text{non-normal: }&amp;&amp; u_t^{(i)}\mid\mathbf{Y}_{t-1} &amp;\sim t(0,1, \nu_i) \\
 \end{align}\]</span></p>
-<h3 id="identification.-3">Identification.</h3>
-<ul>
-<li>Matrix <span class="math inline">\(\mathbf{B}\)</span> is identified up to its rows’ sign change and equations’ reordering</li>
-<li>Structural shocks’ conditional variances <span class="math inline">\(\boldsymbol\sigma_t^2\)</span> can be estimated</li>
-</ul>
-<h3 id="heteroskedasticity-modeling.">Heteroskedasticity Modeling.</h3>
-<p>Choose any (conditional) variance model for <span class="math inline">\(\boldsymbol\sigma_t^2\)</span> that fits the data well.</p>
 </section>
+<section id="alternative-identification-1" class="slide level2" data-background-color="#ff69b4">
+<h2><span style="color: #ffd700;">Alternative Identification</span></h2>
+
+<img data-src="index_files/figure-revealjs/Alternative_Identification-1.png" width="960" class="r-stretch"></section>
 <section id="dynamic-causal-effects-1" class="slide level2" data-background-color="#ff69b4">
 <h2><span style="color: #ffd700;">Dynamic Causal Effects</span></h2>
 </section>
-<section id="impulse-response-functions" class="slide level2">
-<h2>Impulse response functions</h2>
+<section id="dynamic-causal-effects-2" class="slide level2">
+<h2>Dynamic Causal Effects</h2>
+<h3 id="impulse-response-functions">Impulse response functions</h3>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
-<h3 id="definition.">Definition.</h3>
 <p><strong>Impulse response functions</strong> to <em>orthogonal shocks</em> computed for an empirically relevant SVAR model are considered the <text style="color:#ff69b4;"><strong>dynamic causal effects</strong></text> of the underlying shocks <span class="math inline">\(u_t\)</span> on economic measurements <span class="math inline">\(y_{t+i}\)</span> <span class="math inline">\(i\)</span> periods ahead.</p>
 <p><span class="math display">\[\begin{align*}
 \frac{\partial y_{n.t+i}}{\partial u_{j.t}}&amp;=\theta_{nj.i}
@@ -685,12 +735,12 @@ E\left[\text{diag}\left(\boldsymbol\sigma_t^2\right)\right] &amp;= \mathbf{I}_N
 <p>for <span class="math inline">\(i=0,1,\dots,h\)</span> and <span class="math inline">\(n,j=1,\dots,N\)</span></p></li>
 </ul>
 </section>
-<section id="impulse-response-functions-1" class="slide level2">
-<h2>Impulse response functions</h2>
+<section id="dynamic-causal-effects-3" class="slide level2">
+<h2>Dynamic Causal Effects</h2>
+<h3 id="impulse-response-functions-1">Impulse response functions</h3>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
-<h3 id="definition.-1">Definition.</h3>
 <p><strong>Impulse response functions</strong> to <em>orthogonal shocks</em> computed for an empirically relevant SVAR model are considered the <text style="color:#ff69b4;"><strong>dynamic causal effects</strong></text> of the underlying shocks <span class="math inline">\(u_t\)</span> on economic measurements <span class="math inline">\(y_{t+i}\)</span> <span class="math inline">\(i\)</span> periods ahead.</p>
 <p><span class="math display">\[\begin{align*}
 \frac{\partial y_{t+i}}{\partial u_t}&amp;=\underset{N\times N}{\mathbf\Theta_i}
@@ -700,36 +750,52 @@ E\left[\text{diag}\left(\boldsymbol\sigma_t^2\right)\right] &amp;= \mathbf{I}_N
 <p>for <span class="math inline">\(i=0,1,\dots,h\)</span> and <span class="math inline">\(n,j=1,\dots,N\)</span></p></li>
 </ul>
 </section>
-<section id="impulse-response-functions-2" class="slide level2">
-<h2>Impulse response functions</h2>
+<section id="dynamic-causal-effects-4" class="slide level2">
+<h2>Dynamic Causal Effects</h2>
+<h3 id="impulse-response-functions-at-finite-horizon.">Impulse response functions at finite horizon.</h3>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
-<h3 id="at-finite-horizon.">At finite horizon.</h3>
 <p>Define matrices</p>
 <p><span class="math display">\[
 \underset{(pN\times pN)}{\mathbb{A}} = \begin{bmatrix}\mathbf{A}_1 &amp; \mathbf{A}_2 &amp;\dots&amp; \mathbf{A}_p\\ &amp;\mathbf{I}_{N(p-1)}&amp;&amp;\mathbf{0}_{N(p-1)\times N} \end{bmatrix}\quad\text{and}\quad
 \underset{(N\times pN)}{\mathbf{J}} = \begin{bmatrix} \mathbf{I}_{N} &amp; \mathbf{0}_{N\times N(p-1)} \end{bmatrix}
 \]</span> Impulse response at horizon <span class="math inline">\(i=0,1,\dots,h\)</span> are equal to:</p>
 <p><span class="math display">\[\begin{align}
-\mathbf\Theta_i &amp;= \mathbf{J}\mathbb{A}^i\mathbf{J}'\mathbf{B}^{-1}
+\mathbf\Theta_i &amp;= \mathbf{J}\mathbb{A}^i\mathbf{J}'\mathbf{\Theta}_0
 \end{align}\]</span> where <span class="math inline">\(\mathbb{A}^0=\mathbf{I}_N\)</span>, <span class="math inline">\(\mathbb{A}^1=\mathbb{A}\)</span>, <span class="math inline">\(\mathbb{A}^2=\mathbb{A}\mathbb{A}\)</span>, …</p>
 <h3 id="at-infinite-horizon.">At infinite horizon.</h3>
 <p>Inform about the value of the effect in the long run.</p>
 <p><span class="math display">\[\begin{align}
-\mathbf\Theta_{\infty} &amp;= \left( \mathbf{I}_N - \mathbf{A}_1 - \dots - \mathbf{A}_p \right)^{-1}\mathbf{B}^{-1}
+\mathbf\Theta_{\infty} &amp;= \left( \mathbf{I}_N - \mathbf{A}_1 - \dots - \mathbf{A}_p \right)^{-1}\mathbf{\Theta}_0
 \end{align}\]</span></p>
 </section>
-<section id="impulse-response-functions-3" class="slide level2">
-<h2>Impulse response functions</h2>
+<section id="dynamic-causal-effects-5" class="slide level2">
+<h2>Dynamic Causal Effects</h2>
+<h3 id="tasks.-1">Tasks.</h3>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+<p>Consider a bivariate (<span class="math inline">\(N=2\)</span>) Structural VAR model with <span class="math inline">\(p=1\)</span> lag and no constant term: <span class="math display">\[\begin{align}
+y_t &amp;= \mathbf{A}y_{t-1} + \epsilon_t\\
+\mathbf{B}\epsilon_t &amp;= u_t
+\end{align}\]</span></p>
+<p>Derive:</p>
+<ul>
+<li>on impact impulse response, <span class="math inline">\(\mathbf\Theta_0\)</span></li>
+<li>impulse response at horizon 1, <span class="math inline">\(\mathbf\Theta_1\)</span></li>
+</ul>
+</section>
+<section id="dynamic-causal-effects-6" class="slide level2">
+<h2>Dynamic Causal Effects</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="bayesian-estimation.">Bayesian Estimation.</h3>
 <h4 id="step-1.-estimate-the-model">Step 1. Estimate the model</h4>
 <p>Obtain a sample from the posterior distribution <span class="math display">\[\left\{ \mathbf{A}^{(s)},\mathbf{B}^{(s)} \right\}_{s=1}^{S}\]</span></p>
 <h4 id="step-2.-compute-impulse-responses">Step 2. Compute impulse responses</h4>
-<p>For each of the <span class="math inline">\(S\)</span> draws, compute <span class="math inline">\(\mathbf\Theta_i^{(s)}\)</span> as a function of <span class="math inline">\(\mathbf{A}^{(s)}\)</span> and <span class="math inline">\(\mathbf{B}^{(s)}\)</span> and return <span class="math display">\[\left\{\mathbf\Theta_i^{(s)}\right\}_{s=1}^{S}\]</span> as a sample drew from the posterior distribution of <span class="math inline">\(\Theta_i\)</span> given data.</p>
+<p>For each of the <span class="math inline">\(S\)</span> draws, compute impulse responses <span class="math inline">\(\mathbf\Theta_0^{(s)}, \dots, \mathbf\Theta_h^{(s)}\)</span> as a function of <span class="math inline">\(\mathbf{A}^{(s)}\)</span> and <span class="math inline">\(\mathbf{B}^{(s)}\)</span> and return <span class="math display">\[\left\{\mathbf\Theta_0^{(s)}, \dots, \mathbf\Theta_h^{(s)}\right\}_{s=1}^{S}\]</span> as a sample drew from the posterior distribution the impulse responses.</p>
 </section>
 <section id="bayesian-estimation-1" class="slide level2" data-background-color="#ff69b4">
 <h2><span style="color: #ffd700;">Bayesian Estimation</span></h2>
@@ -737,7 +803,7 @@ E\left[\text{diag}\left(\boldsymbol\sigma_t^2\right)\right] &amp;= \mathbf{I}_N
 <section id="bayesian-estimation-2" class="slide level2">
 <h2>Bayesian Estimation</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <p><span class="math inline">\(\left.\right.\)</span></p>
 <h4 id="gibbs-sampler-by-waggoner-zha-2003"><strong>Gibbs sampler</strong> by <a href="https://doi.org/10.1016/S0165-1889(02)00168-9">Waggoner &amp; Zha (2003)</a></h4>
@@ -745,10 +811,10 @@ E\left[\text{diag}\left(\boldsymbol\sigma_t^2\right)\right] &amp;= \mathbf{I}_N
 <ul>
 <li>lower-triangular and non-recursive identification patterns of exclusion restrictions</li>
 <li>over-identifying (more than <span class="math inline">\(N(N − 1)/2)\)</span> exclusion restrictions</li>
-<li>models identified via heteroskedasticity</li>
+<li>models identified via heteroskedasticity and non-normality</li>
 </ul>
 <p><span class="math inline">\(\left.\right.\)</span></p>
-<h4 id="further-extensions-include-svars">Further extensions include SVARs</h4>
+<h4 id="other-approaches-facilitate-estimation-of-svars">Other approaches facilitate estimation of SVARs</h4>
 <ul>
 <li>identified through non-normal residuals</li>
 <li>identified by zero and sign restrictions</li>
@@ -758,7 +824,7 @@ E\left[\text{diag}\left(\boldsymbol\sigma_t^2\right)\right] &amp;= \mathbf{I}_N
 <section id="bayesian-estimation-3" class="slide level2">
 <h2>Bayesian Estimation</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="exclusion-restrictions-on-the-rows-of-mathbfb">Exclusion restrictions on the rows of <span class="math inline">\(\mathbf{B}\)</span></h3>
 <p><span class="math display">\[
@@ -776,7 +842,7 @@ E\left[\text{diag}\left(\boldsymbol\sigma_t^2\right)\right] &amp;= \mathbf{I}_N
 <section id="bayesian-estimation-4" class="slide level2">
 <h2>Bayesian Estimation</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="the-nth-structural-equation.">The <span class="math inline">\(n\)</span>th Structural Equation.</h3>
 <p><span class="math display">\[\begin{align*}
@@ -794,7 +860,7 @@ U_n &amp;\sim N_T\left(\mathbf{0}_T,I_T\right)\\[2ex]
 <section id="bayesian-estimation-5" class="slide level2">
 <h2>Bayesian Estimation</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="likelihood-function.">Likelihood function.</h3>
 <p><span class="math display">\[\begin{align*}
@@ -815,7 +881,7 @@ E &amp;= Y - X\mathbf{A}
 <section id="bayesian-estimation-6" class="slide level2">
 <h2>Bayesian Estimation</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <h3 id="kernel-of-the-full-conditional-posterior-for-mathbfb">Kernel of the full conditional posterior for <span class="math inline">\(\mathbf{B}\)</span></h3>
 <p><span class="math display">\[\begin{align*}
@@ -835,14 +901,14 @@ p(\mathbf{B}|Y,X,\mathbf{A}, \gamma_B)&amp;\propto
 <section id="bsvars-an-r-package" class="slide level2">
 <h2><a href="https://cran.r-project.org/package=bsvars">bsvars</a> an R Package</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 
 <img data-src="cran.png" class="r-stretch"></section>
 <section id="bsvars-an-r-package-features" class="slide level2">
 <h2><a href="https://cran.r-project.org/package=bsvars">bsvars</a> an R Package: Features</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <ul>
 <li>Bayesian estimation of Structural VARs</li>
@@ -854,23 +920,25 @@ p(\mathbf{B}|Y,X,\mathbf{A}, \gamma_B)&amp;\propto
 </ul></li>
 <li>six heteroskedastic processes</li>
 <li>efficient and fast Gibbs sampler</li>
-<li>excellent computational speed</li>
+<li>excellent computational speed
+<ul>
 <li>frontier econometric techniques</li>
-<li>compiled code using <strong>cpp</strong> via <a href="https://www.rcpp.org"><strong>Rcpp</strong></a> and <a href="https://cran.r-project.org/package=RcppArmadillo"><strong>RcppArmadillo</strong></a></li>
+<li>compiled code using <strong>C++</strong></li>
+</ul></li>
 <li>data analysis in <strong>R</strong></li>
 </ul>
 </section>
 <section id="bsvars-an-r-package-features-1" class="slide level2">
 <h2><a href="https://cran.r-project.org/package=bsvars">bsvars</a> an R Package: Features</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 
 <img data-src="progress.png" class="r-stretch"></section>
 <section id="bsvars-an-r-package-features-2" class="slide level2">
 <h2><a href="https://cran.r-project.org/package=bsvars">bsvars</a> an R Package: Features</h2>
 <div class="footer">
-<p><a href="https://bayesian-econometrics-2023.github.io/be23-lecture8/">Bayesian Structural VARs</a></p>
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
 </div>
 <ul>
 <li>simple model setup using <code>specify_*()</code></li>
@@ -878,452 +946,393 @@ p(\mathbf{B}|Y,X,\mathbf{A}, \gamma_B)&amp;\propto
 <li>one function for estimation <code>estimate()</code></li>
 <li>posterior processing utility functions</li>
 </ul>
-<!-- ### The simplest workflow using pipe. -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- library(bsvars) -->
-<!-- data(us_fiscal_lsuw) -->
-<!-- set.seed(1) -->
-<!-- us_fiscal_lsuw |> -->
-<!--   specify_bsvar_sv$new(p = 2) |> -->
-<!--   estimate(S = 1000) |>  -->
-<!--   estimate(S = 5000) |>  -->
-<!--   compute_impulse_responses(horizon = 8) -> irfs -->
-<!-- ``` -->
-<!-- ## Australian Monetary Policy Analysis -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- Based on [Turnip (2017)]( https://doi.org/10.1111/1475-4932.12345) -->
-<!-- ### System of four variables. -->
-<!-- \begin{align} -->
-<!-- y_t = \begin{bmatrix} \Delta rgdp_t & \pi_t & cr_t & \Delta rtwi_t \end{bmatrix}' -->
-<!-- \end{align} -->
-<!-- ### Alternative identification patterns. -->
-<!-- \begin{align} -->
-<!-- \textbf{lower-triangular} && \textbf{extended}\\ -->
-<!-- \begin{bmatrix} -->
-<!-- B_{11}&0&0&0\\ -->
-<!-- B_{21}&B_{22}&0&0\\ -->
-<!-- B_{31}&B_{32}&B_{33}&0\\ -->
-<!-- B_{41}&B_{42}&B_{43}&B_{44} -->
-<!-- \end{bmatrix} -->
-<!-- \begin{bmatrix} \Delta rgdp_t \\ \pi_t \\ cr_t \\ \Delta rtwi_t \end{bmatrix} && -->
-<!-- \begin{bmatrix} -->
-<!-- B_{11}&0&0&0\\ -->
-<!-- B_{21}&B_{22}&0&0\\ -->
-<!-- B_{31}&B_{32}&B_{33}&B_{34}\\ -->
-<!-- B_{41}&B_{42}&B_{43}&B_{44} -->
-<!-- \end{bmatrix} -->
-<!-- \begin{bmatrix} \Delta rgdp_t \\ \pi_t \\ cr_t \\ \Delta rtwi_t \end{bmatrix}  -->
-<!-- \end{align} -->
-<!-- - In the **extended** model, the monetary policy shock is not identified -->
-<!-- - Use identification via heteroskedasticity to identify it -->
-<!-- ## Four-Variable Monetary System -->
-<!-- ```{r} -->
-<!-- #| label: data -->
-<!-- #| cache: true -->
-<!-- #| warning: false -->
-<!-- #| fig-align: "center" -->
-<!-- #| fig-height: 6 -->
-<!-- #| output-location: slide -->
-<!-- # Gross domestic product (GDP); Chain volume -->
-<!-- rgdp_dwnld      = readrba::read_rba(series_id = "GGDPCVGDP") -->
-<!-- rgdp_tmp        = xts::xts(rgdp_dwnld$value, rgdp_dwnld$date, tclass = 'yearqtr') -->
-<!-- drgdp           = na.omit(400 * diff(log(rgdp_tmp))) -->
-<!-- drgdp           = xts::to.quarterly(drgdp, OHLC = FALSE) -->
-<!-- # Consumer price index; All groups; Quarterly change (in per cent) -->
-<!-- picpi_dwnld     = readrba::read_rba(series_id = "GCPIAGSAQP") -->
-<!-- pi              = 4 * xts::xts(picpi_dwnld$value, picpi_dwnld$date, tclass = 'yearqtr') -->
-<!-- pi              = xts::to.quarterly(pi, OHLC = FALSE) -->
-<!-- # Interbank Overnight Cash Rate -->
-<!-- cr_dwnld        = readrba::read_rba(series_id = "FIRMMCRID")   # Cash Rate Target -->
-<!-- cr_tmp          = xts::xts(cr_dwnld$value, cr_dwnld$date) -->
-<!-- cr              = xts::to.quarterly(cr_tmp, OHLC = FALSE) -->
-<!-- # Real Trade-Weighted Index -->
-<!-- rtwi_dwnld      = readrba::read_rba(series_id = "FRERTWI") -->
-<!-- rtwi_tmp        = xts::xts(rtwi_dwnld$value, rtwi_dwnld$date, tclass = 'yearqtr') -->
-<!-- rtwi            = 100 * na.omit(diff(log(rtwi_tmp))) -->
-<!-- drtwi            = xts::to.quarterly(rtwi, OHLC = FALSE) -->
-<!-- y               = na.omit(merge(drgdp, pi, cr, drtwi)) -->
-<!-- plot(y, main = "Australian monetary system",  -->
-<!--      legend.loc = "bottomleft", col = c("#FF00FF","#990099","#ff69b4","#330033")) -->
-<!-- ``` -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ## Estimation Setup -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- # setup -->
-<!-- ############################################################ -->
-<!-- library(bsvars) -->
-<!-- set.seed(123) -->
-<!-- N       = ncol(y) -->
-<!-- p       = 9 -->
-<!-- S_burn  = 1e4 -->
-<!-- S       = 2e4 -->
-<!-- thin    = 2 -->
-<!-- ``` -->
-<!-- ## Extended Model Identification Setup -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- # structural matrix - extended model -->
-<!-- ############################################################ -->
-<!-- B_LR = matrix(TRUE, N, N) -->
-<!-- B_LR[upper.tri(B_LR)] = FALSE -->
-<!-- B_LR[3,4] = TRUE -->
-<!-- B_LR -->
-<!-- ``` -->
-<!-- ## Alternative Models Estimation -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ### Lower-triangular model with zero prior mean for $\mathbf{A}$. -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- # estimation - lower-triangular model -->
-<!-- ############################################################ -->
-<!-- spec_bsvar0     = specify_bsvar$new(as.matrix(y), p = p, stationary = rep(TRUE, N)) -->
-<!-- spec_bsvar0 |>  -->
-<!--   estimate(S = S_burn) |>  -->
-<!--   estimate(S = S, thin = thin) -> soe_bsvar0 -->
-<!-- ``` -->
-<!-- ## Alternative Models Estimation -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ### Lower-triangular model with MLE prior mean for $\mathbf{A}$. -->
-<!-- ```{r} -->
-<!-- #| code-line-numbers: "5-9" -->
-<!-- #| eval: false -->
-<!-- # estimation - lower-triangular model - MLE prior for A -->
-<!-- ############################################################ -->
-<!-- spec_bsvar      = specify_bsvar$new(as.matrix(y), p = p, stationary = rep(TRUE, N)) -->
-<!-- A_mle           = t(solve( -->
-<!--   tcrossprod(spec_bsvar$data_matrices$X),  -->
-<!--   tcrossprod(spec_bsvar$data_matrices$X, spec_bsvar$data_matrices$Y) -->
-<!-- )) -->
-<!-- spec_bsvar$prior$A = A_mle -->
-<!-- spec_bsvar |>  -->
-<!--   estimate(S = S_burn) |>  -->
-<!--   estimate(S = S, thin = thin) -> soe_bsvar -->
-<!-- ``` -->
-<!-- ## Alternative Models Estimation -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ### Extended model with MLE prior mean for $\mathbf{A}$. -->
-<!-- ```{r} -->
-<!-- #| code-line-numbers: "3-4" -->
-<!-- #| eval: false -->
-<!-- # estimation - extended model - MLE prior for A -->
-<!-- ############################################################ -->
-<!-- spec_bsvar_lr   = specify_bsvar$new(as.matrix(y), p = p, B = B_LR, stationary = rep(TRUE, N)) -->
-<!-- spec_bsvar_lr$prior$A = A_mle -->
-<!-- spec_bsvar_lr |>  -->
-<!--   estimate(S = S_burn) |>  -->
-<!--   estimate(S = S, thin = thin) -> soe_bsvar_lr -->
-<!-- ``` -->
-<!-- ## Alternative Models Estimation -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ### Lower-triangular model with Markov-switching heteroskedastisity. -->
-<!-- ```{r} -->
-<!-- #| code-line-numbers: "3-4" -->
-<!-- #| eval: false -->
-<!-- # estimation - lower-triangular MS heteroskedastic model -->
-<!-- ############################################################ -->
-<!-- spec_bsvar_msh    = specify_bsvar_msh$new(as.matrix(y), p = p, M = 2, stationary = rep(TRUE, N)) -->
-<!-- spec_bsvar_msh$prior$A = A_mle -->
-<!-- spec_bsvar_msh |>  -->
-<!--   estimate(S = S_burn) |>  -->
-<!--   estimate(S = S, thin = thin) -> soe_bsvar_msh -->
-<!-- ``` -->
-<!-- ## Alternative Models Estimation -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ### Extended model with Markov-switching heteroskedastisity. -->
-<!-- ```{r} -->
-<!-- #| code-line-numbers: "3" -->
-<!-- #| eval: false -->
-<!-- # estimation - extended MS heteroskedastic model -->
-<!-- ############################################################ -->
-<!-- spec_bsvar_lr_msh = specify_bsvar_msh$new(as.matrix(y), p = p, B = B_LR, M = 2, stationary = rep(TRUE, N)) -->
-<!-- spec_bsvar_lr_msh$prior$A = A_mle -->
-<!-- spec_bsvar_lr_msh |>  -->
-<!--   estimate(S = S_burn) |>  -->
-<!--   estimate(S = S, thin = thin) -> soe_bsvar_lr_msh -->
-<!-- ``` -->
-<!-- ## Alternative Models Estimation -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ### Lower-triangular model with Stochastic Volatility heteroskedastisity. -->
-<!-- ```{r} -->
-<!-- #| code-line-numbers: "3" -->
-<!-- #| eval: false -->
-<!-- # estimation - lower-triangular SV heteroskedastic model -->
-<!-- ############################################################ -->
-<!-- spec_bsvar_sv = specify_bsvar_sv$new(as.matrix(y), p = p, stationary = rep(TRUE, N)) -->
-<!-- spec_bsvar_sv$prior$A = A_mle -->
-<!-- spec_bsvar_sv |> -->
-<!--   estimate(S = S_burn) |>  -->
-<!--   estimate(S = S, thin = thin) -> soe_bsvar_sv -->
-<!-- ``` -->
-<!-- ## Alternative Models Estimation -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ### Extended model with Stochastic Volatility heteroskedastisity. -->
-<!-- ```{r} -->
-<!-- #| code-line-numbers: "3" -->
-<!-- #| eval: false -->
-<!-- # estimation - extended SV heteroskedastic model -->
-<!-- ############################################################ -->
-<!-- spec_bsvar_lr_sv = specify_bsvar_sv$new(as.matrix(y), p = p, B = B_LR, stationary = rep(TRUE, N)) -->
-<!-- spec_bsvar_lr_sv$prior$A = A_mle -->
-<!-- spec_bsvar_lr_sv |> -->
-<!--   estimate(S = S_burn) |>  -->
-<!--   estimate(S = S, thin = thin) -> soe_bsvar_lr_sv -->
-<!-- ``` -->
-<!-- ```{r} -->
-<!-- #| echo: false -->
-<!-- #| cache: true -->
-<!-- load("soe_bsvar.rda") -->
-<!-- ``` -->
-<!-- ## IRFs: Compute impulse responses -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- #| cache: true -->
-<!-- ir_bsvar0       = compute_impulse_responses(soe_bsvar0, horizon = 20) -->
-<!-- ir_bsvar0[,3,,] = 0.25 * ir_bsvar0[,3,,] / mean(ir_bsvar0[3,3,1,]) -->
-<!-- ir_bsvar        = compute_impulse_responses(soe_bsvar, horizon = 20) -->
-<!-- ir_bsvar[,3,,]  = 0.25 * ir_bsvar[,3,,] / mean(ir_bsvar[3,3,1,]) -->
-<!-- ir_bsvar_lr        = compute_impulse_responses(soe_bsvar_lr, horizon = 20) -->
-<!-- ir_bsvar_lr[,3,,]  = 0.25 * ir_bsvar_lr[,3,,] / mean(ir_bsvar_lr[3,3,1,]) -->
-<!-- ir_bsvar_msh        = compute_impulse_responses(soe_bsvar_msh, horizon = 20) -->
-<!-- ir_bsvar_msh[,3,,]  = 0.25 * ir_bsvar_msh[,3,,] / mean(ir_bsvar_msh[3,3,1,]) -->
-<!-- ir_bsvar_lr_msh        = compute_impulse_responses(soe_bsvar_lr_msh, horizon = 20) -->
-<!-- ir_bsvar_lr_msh[,3,,]  = 0.25 * ir_bsvar_lr_msh[,3,,] / mean(ir_bsvar_lr_msh[3,3,1,]) -->
-<!-- ir_bsvar_sv        = compute_impulse_responses(soe_bsvar_sv, horizon = 20) -->
-<!-- ir_bsvar_sv[,3,,]  = 0.25 * ir_bsvar_sv[,3,,] / mean(ir_bsvar_sv[3,3,1,]) -->
-<!-- ir_bsvar_lr_sv        = compute_impulse_responses(soe_bsvar_lr_sv, horizon = 20) -->
-<!-- ir_bsvar_lr_sv[,3,,]  = 0.25 * ir_bsvar_lr_sv[,3,,] / mean(ir_bsvar_lr_sv[3,3,1,]) -->
-<!-- ``` -->
-<!-- ## IRFs: Zero vs. MLE prior mean -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- #| echo: false -->
-<!-- #| fig-align: "center" -->
-<!-- #| fig-height: 8 -->
-<!-- par(mfrow = c(4,2)) -->
-<!-- for (n in 1:4) { -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     ir_bsvar0[n,3,,], -->
-<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "horizon [quarters]", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 0) -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     ir_bsvar[n,3,,], -->
-<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "horizon [quarters]", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 0) -->
-<!-- } -->
-<!-- ``` -->
-<!-- ## IRFs: Recursive vs. Extended (homosk) -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- #| echo: false -->
-<!-- #| fig-align: "center" -->
-<!-- #| fig-height: 8 -->
-<!-- par(mfrow = c(4,2)) -->
-<!-- for (n in 1:4) { -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     ir_bsvar[n,3,,], -->
-<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "horizon [quarters]", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 0) -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     ir_bsvar_lr[n,3,,], -->
-<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "horizon [quarters]", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 0) -->
-<!-- } -->
-<!-- ``` -->
-<!-- ## IRFs: Homosk vs. MSH vs. SV (Recursive) -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- #| echo: false -->
-<!-- #| fig-align: "center" -->
-<!-- #| fig-height: 7 -->
-<!-- par(mfrow = c(4,3)) -->
-<!-- for (n in 1:4) { -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     ir_bsvar[n,3,,], -->
-<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "horizon [quarters]", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 0) -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     ir_bsvar_msh[n,3,,], -->
-<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "horizon [quarters]", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 0) -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     ir_bsvar_sv[n,3,,], -->
-<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "horizon [quarters]", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 0) -->
-<!-- } -->
-<!-- ``` -->
-<!-- ## IRFs: Homosk vs. MSH vs. SV (Extended) -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- #| echo: false -->
-<!-- #| fig-align: "center" -->
-<!-- #| fig-height: 7 -->
-<!-- par(mfrow = c(4,3)) -->
-<!-- for (n in 1:4) { -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     ir_bsvar_lr[n,3,,], -->
-<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "horizon [quarters]", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 0) -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     ir_bsvar_lr_msh[n,3,,], -->
-<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "horizon [quarters]", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 0) -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     ir_bsvar_lr_sv[n,3,,], -->
-<!--     main = paste("Response of",colnames(y)[n],"to the mps"), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "horizon [quarters]", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 0) -->
-<!-- } -->
-<!-- ``` -->
-<!-- ## SDs: MSH vs. SV (Recursive) -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- #| echo: false -->
-<!-- #| fig-align: "center" -->
-<!-- #| fig-height: 7 -->
-<!-- sd_msh  = compute_conditional_sd(soe_bsvar_msh) -->
-<!-- sd_sv   = compute_conditional_sd(soe_bsvar_sv) -->
-<!-- par(mfrow = c(4,2)) -->
-<!-- for (n in 1:4) { -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     sd_msh[n,,], -->
-<!--     main = paste("SD of",colnames(y)[n]), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "time", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 1) -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     sd_sv[n,,], -->
-<!--     main = paste("SD of",colnames(y)[n]), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "time", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 1) -->
-<!-- } -->
-<!-- ``` -->
-<!-- ## SDs: MSH vs. SV (Extended) -->
-<!-- ::: footer -->
-<!-- [Bayesian Structural VARs](https://bayesian-econometrics-2023.github.io/be23-lecture8/) -->
-<!-- ::: -->
-<!-- ```{r} -->
-<!-- #| echo: false -->
-<!-- #| fig-align: "center" -->
-<!-- #| fig-height: 7 -->
-<!-- sd_msh  = compute_conditional_sd(soe_bsvar_lr_msh) -->
-<!-- sd_sv   = compute_conditional_sd(soe_bsvar_lr_sv) -->
-<!-- par(mfrow = c(4,2)) -->
-<!-- for (n in 1:4) { -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     sd_msh[n,,], -->
-<!--     main = paste("SD of",colnames(y)[n]), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "time", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 1) -->
-<!--   bsvarTVPs::ribbon_plot( -->
-<!--     sd_sv[n,,], -->
-<!--     main = paste("SD of",colnames(y)[n]), -->
-<!--     ylab = colnames(y)[n], -->
-<!--     xlab = "time", -->
-<!--     bty  = "n", -->
-<!--     col = "#ff69b4" -->
-<!--   ) -->
-<!--   abline(h = 1) -->
-<!-- } -->
-<!-- ``` -->
+<h3 id="the-simplest-workflow-using-pipe.">The simplest workflow using pipe.</h3>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-1_d966b08d5fb2fb61088d33ac53715f47">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(bsvars)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">data</span>(us_fiscal_lsuw)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>us_fiscal_lsuw <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>  specify_bsvar_sv<span class="sc">$</span><span class="fu">new</span>(<span class="at">p =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="fu">estimate</span>(<span class="at">S =</span> <span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>  <span class="fu">estimate</span>(<span class="at">S =</span> <span class="dv">5000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="fu">compute_impulse_responses</span>(<span class="at">horizon =</span> <span class="dv">8</span>) <span class="ot">-&gt;</span> irfs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="bsvars-bayesian-estimation-of-structural-vector-autoregressive-models" class="slide level2" data-background-color="#ff69b4">
-<h2><a href="https://cran.r-project.org/package=bsvars">bsvars:</a> <span style="color: #ffd700;">Bayesian Estimation of Structural Vector Autoregressive Models</span></h2>
+<section id="australian-monetary-policy-analysis" class="slide level2">
+<h2>Australian Monetary Policy Analysis</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+<p>Based on <a href="https://doi.org/10.1111/1475-4932.12345">Turnip (2017)</a></p>
+<h3 id="system-of-four-variables.">System of four variables.</h3>
+<p><span class="math display">\[\begin{align}
+y_t = \begin{bmatrix} \Delta rgdp_t &amp; \pi_t &amp; cr_t &amp; \Delta rtwi_t \end{bmatrix}'
+\end{align}\]</span></p>
+<h3 id="alternative-identification-patterns.">Alternative identification patterns.</h3>
+<p><span class="math display">\[\begin{align}
+\textbf{lower-triangular} &amp;&amp; \textbf{extended}\\
+\begin{bmatrix}
+B_{11}&amp;0&amp;0&amp;0\\
+B_{21}&amp;B_{22}&amp;0&amp;0\\
+B_{31}&amp;B_{32}&amp;B_{33}&amp;0\\
+B_{41}&amp;B_{42}&amp;B_{43}&amp;B_{44}
+\end{bmatrix}
+\begin{bmatrix} \Delta rgdp_t \\ \pi_t \\ cr_t \\ \Delta rtwi_t \end{bmatrix} &amp;&amp;
+\begin{bmatrix}
+B_{11}&amp;0&amp;0&amp;0\\
+B_{21}&amp;B_{22}&amp;0&amp;0\\
+B_{31}&amp;B_{32}&amp;B_{33}&amp;B_{34}\\
+B_{41}&amp;B_{42}&amp;B_{43}&amp;B_{44}
+\end{bmatrix}
+\begin{bmatrix} \Delta rgdp_t \\ \pi_t \\ cr_t \\ \Delta rtwi_t \end{bmatrix}
+\end{align}\]</span></p>
+<ul>
+<li>In the <strong>extended</strong> model, the monetary policy shock is not identified</li>
+<li>Use identification via heteroskedasticity to identify it</li>
+</ul>
+</section>
+<section id="four-variable-monetary-system" class="slide level2">
+<h2>Four-Variable Monetary System</h2>
+<div class="cell" data-layout-align="center" data-hash="index_cache/revealjs/data_f0907e349db280c72e537bd0b6d3547b">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Gross domestic product (GDP); Chain volume</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>rgdp_dwnld      <span class="ot">=</span> readrba<span class="sc">::</span><span class="fu">read_rba</span>(<span class="at">series_id =</span> <span class="st">"GGDPCVGDP"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>rgdp_tmp        <span class="ot">=</span> xts<span class="sc">::</span><span class="fu">xts</span>(rgdp_dwnld<span class="sc">$</span>value, rgdp_dwnld<span class="sc">$</span>date, <span class="at">tclass =</span> <span class="st">'yearqtr'</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>drgdp           <span class="ot">=</span> <span class="fu">na.omit</span>(<span class="dv">400</span> <span class="sc">*</span> <span class="fu">diff</span>(<span class="fu">log</span>(rgdp_tmp)))</span>
+<span id="cb2-5"><a href="#cb2-5"></a>drgdp           <span class="ot">=</span> xts<span class="sc">::</span><span class="fu">to.quarterly</span>(drgdp, <span class="at">OHLC =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># Consumer price index; All groups; Quarterly change (in per cent)</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>picpi_dwnld     <span class="ot">=</span> readrba<span class="sc">::</span><span class="fu">read_rba</span>(<span class="at">series_id =</span> <span class="st">"GCPIAGSAQP"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>pi              <span class="ot">=</span> <span class="dv">4</span> <span class="sc">*</span> xts<span class="sc">::</span><span class="fu">xts</span>(picpi_dwnld<span class="sc">$</span>value, picpi_dwnld<span class="sc">$</span>date, <span class="at">tclass =</span> <span class="st">'yearqtr'</span>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a>pi              <span class="ot">=</span> xts<span class="sc">::</span><span class="fu">to.quarterly</span>(pi, <span class="at">OHLC =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-11"><a href="#cb2-11"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co"># Interbank Overnight Cash Rate</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>cr_dwnld        <span class="ot">=</span> readrba<span class="sc">::</span><span class="fu">read_rba</span>(<span class="at">series_id =</span> <span class="st">"FIRMMCRID"</span>)   <span class="co"># Cash Rate Target</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>cr_tmp          <span class="ot">=</span> xts<span class="sc">::</span><span class="fu">xts</span>(cr_dwnld<span class="sc">$</span>value, cr_dwnld<span class="sc">$</span>date)</span>
+<span id="cb2-15"><a href="#cb2-15"></a>cr              <span class="ot">=</span> xts<span class="sc">::</span><span class="fu">to.quarterly</span>(cr_tmp, <span class="at">OHLC =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co"># Real Trade-Weighted Index</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>rtwi_dwnld      <span class="ot">=</span> readrba<span class="sc">::</span><span class="fu">read_rba</span>(<span class="at">series_id =</span> <span class="st">"FRERTWI"</span>)</span>
+<span id="cb2-19"><a href="#cb2-19"></a>rtwi_tmp        <span class="ot">=</span> xts<span class="sc">::</span><span class="fu">xts</span>(rtwi_dwnld<span class="sc">$</span>value, rtwi_dwnld<span class="sc">$</span>date, <span class="at">tclass =</span> <span class="st">'yearqtr'</span>)</span>
+<span id="cb2-20"><a href="#cb2-20"></a>rtwi            <span class="ot">=</span> <span class="dv">100</span> <span class="sc">*</span> <span class="fu">na.omit</span>(<span class="fu">diff</span>(<span class="fu">log</span>(rtwi_tmp)))</span>
+<span id="cb2-21"><a href="#cb2-21"></a>drtwi            <span class="ot">=</span> xts<span class="sc">::</span><span class="fu">to.quarterly</span>(rtwi, <span class="at">OHLC =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-22"><a href="#cb2-22"></a></span>
+<span id="cb2-23"><a href="#cb2-23"></a>y               <span class="ot">=</span> <span class="fu">na.omit</span>(<span class="fu">merge</span>(drgdp, pi, cr, drtwi))</span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="fu">plot</span>(y, <span class="at">main =</span> <span class="st">"Australian monetary system"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25"></a>     <span class="at">legend.loc =</span> <span class="st">"bottomleft"</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#FF00FF"</span>,<span class="st">"#990099"</span>,<span class="st">"#ff69b4"</span>,<span class="st">"#330033"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+</section>
+<section id="four-variable-monetary-system-output" class="slide level2 output-location-slide"><h2>Four-Variable Monetary System</h2><div class="cell output-location-slide" data-layout-align="center" data-hash="index_cache/revealjs/data_f0907e349db280c72e537bd0b6d3547b">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/data-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></section><section id="estimation-setup" class="slide level2">
+<h2>Estimation Setup</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-3_55ab3f7b9b8ff4425330f4ad991badd2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># setup</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="do">############################################################</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">library</span>(bsvars)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a>N       <span class="ot">=</span> <span class="fu">ncol</span>(y)</span>
+<span id="cb3-7"><a href="#cb3-7"></a>p       <span class="ot">=</span> <span class="dv">9</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>S_burn  <span class="ot">=</span> <span class="fl">1e4</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>S       <span class="ot">=</span> <span class="fl">2e4</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>thin    <span class="ot">=</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="extended-model-identification-setup" class="slide level2">
+<h2>Extended Model Identification Setup</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-4_c5daf10edc29b73f21e1826a12939bd5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># structural matrix - extended model</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="do">############################################################</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>B_LR <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">TRUE</span>, N, N)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>B_LR[<span class="fu">upper.tri</span>(B_LR)] <span class="ot">=</span> <span class="cn">FALSE</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>B_LR[<span class="dv">3</span>,<span class="dv">4</span>] <span class="ot">=</span> <span class="cn">TRUE</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>B_LR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]  [,2]  [,3]  [,4]
+[1,] TRUE FALSE FALSE FALSE
+[2,] TRUE  TRUE FALSE FALSE
+[3,] TRUE  TRUE  TRUE  TRUE
+[4,] TRUE  TRUE  TRUE  TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="alternative-models-estimation" class="slide level2">
+<h2>Alternative Models Estimation</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="lower-triangular-model-with-zero-prior-mean-for-mathbfa.">Lower-triangular model with zero prior mean for <span class="math inline">\(\mathbf{A}\)</span>.</h3>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-5_4b934c1c1c8189da8062f42032d16cff">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># estimation - lower-triangular model</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="do">############################################################</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>spec_bsvar0     <span class="ot">=</span> specify_bsvar<span class="sc">$</span><span class="fu">new</span>(<span class="fu">as.matrix</span>(y), <span class="at">p =</span> p, <span class="at">stationary =</span> <span class="fu">rep</span>(<span class="cn">TRUE</span>, N))</span>
+<span id="cb6-4"><a href="#cb6-4"></a>spec_bsvar0 <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">estimate</span>(<span class="at">S =</span> S_burn) <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">estimate</span>(<span class="at">S =</span> S, <span class="at">thin =</span> thin) <span class="ot">-&gt;</span> soe_bsvar0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**************************************************|
+bsvars: Bayesian Structural Vector Autoregressions|
+**************************************************|
+ Gibbs sampler for the SVAR model                 |
+**************************************************|
+ Progress of the MCMC simulation for 10000 draws
+    Every draw is saved via MCMC thinning
+ Press Esc to interrupt the computations
+**************************************************|
+**************************************************|
+bsvars: Bayesian Structural Vector Autoregressions|
+**************************************************|
+ Gibbs sampler for the SVAR model                 |
+**************************************************|
+ Progress of the MCMC simulation for 20000 draws
+    Every 2nd draw is saved via MCMC thinning
+ Press Esc to interrupt the computations
+**************************************************|</code></pre>
+</div>
+</div>
+</section>
+<section id="alternative-models-estimation-1" class="slide level2">
+<h2>Alternative Models Estimation</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="lower-triangular-model-with-mle-prior-mean-for-mathbfa.">Lower-triangular model with MLE prior mean for <span class="math inline">\(\mathbf{A}\)</span>.</h3>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-6_bec0740265f47e408941aad2c08c1c30">
+<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="5-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># estimation - lower-triangular model - MLE prior for A</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="do">############################################################</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>spec_bsvar      <span class="ot">=</span> specify_bsvar<span class="sc">$</span><span class="fu">new</span>(<span class="fu">as.matrix</span>(y), <span class="at">p =</span> p, <span class="at">stationary =</span> <span class="fu">rep</span>(<span class="cn">TRUE</span>, N))</span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a>A_mle           <span class="ot">=</span> <span class="fu">t</span>(<span class="fu">solve</span>(</span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">tcrossprod</span>(spec_bsvar<span class="sc">$</span>data_matrices<span class="sc">$</span>X),</span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">tcrossprod</span>(spec_bsvar<span class="sc">$</span>data_matrices<span class="sc">$</span>X, spec_bsvar<span class="sc">$</span>data_matrices<span class="sc">$</span>Y)</span>
+<span id="cb8-8"><a href="#cb8-8"></a>))</span>
+<span id="cb8-9"><a href="#cb8-9"></a>spec_bsvar<span class="sc">$</span>prior<span class="sc">$</span>A <span class="ot">=</span> A_mle</span>
+<span id="cb8-10"><a href="#cb8-10"></a></span>
+<span id="cb8-11"><a href="#cb8-11"></a>spec_bsvar <span class="sc">|&gt;</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>  <span class="fu">estimate</span>(<span class="at">S =</span> S_burn) <span class="sc">|&gt;</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>  <span class="fu">estimate</span>(<span class="at">S =</span> S, <span class="at">thin =</span> thin) <span class="ot">-&gt;</span> soe_bsvar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**************************************************|
+bsvars: Bayesian Structural Vector Autoregressions|
+**************************************************|
+ Gibbs sampler for the SVAR model                 |
+**************************************************|
+ Progress of the MCMC simulation for 10000 draws
+    Every draw is saved via MCMC thinning
+ Press Esc to interrupt the computations
+**************************************************|
+**************************************************|
+bsvars: Bayesian Structural Vector Autoregressions|
+**************************************************|
+ Gibbs sampler for the SVAR model                 |
+**************************************************|
+ Progress of the MCMC simulation for 20000 draws
+    Every 2nd draw is saved via MCMC thinning
+ Press Esc to interrupt the computations
+**************************************************|</code></pre>
+</div>
+</div>
+</section>
+<section id="alternative-models-estimation-2" class="slide level2">
+<h2>Alternative Models Estimation</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="extended-model-with-mle-prior-mean-for-mathbfa.">Extended model with MLE prior mean for <span class="math inline">\(\mathbf{A}\)</span>.</h3>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-7_dbf8a93ffe20c8987f769eae3963339c">
+<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="3-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># estimation - extended model - MLE prior for A</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="do">############################################################</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>spec_bsvar_lr   <span class="ot">=</span> specify_bsvar<span class="sc">$</span><span class="fu">new</span>(<span class="fu">as.matrix</span>(y), <span class="at">p =</span> p, <span class="at">B =</span> B_LR, <span class="at">stationary =</span> <span class="fu">rep</span>(<span class="cn">TRUE</span>, N))</span>
+<span id="cb10-4"><a href="#cb10-4"></a>spec_bsvar_lr<span class="sc">$</span>prior<span class="sc">$</span>A <span class="ot">=</span> A_mle</span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a>spec_bsvar_lr <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">estimate</span>(<span class="at">S =</span> S_burn) <span class="sc">|&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>  <span class="fu">estimate</span>(<span class="at">S =</span> S, <span class="at">thin =</span> thin) <span class="ot">-&gt;</span> soe_bsvar_lr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**************************************************|
+bsvars: Bayesian Structural Vector Autoregressions|
+**************************************************|
+ Gibbs sampler for the SVAR model                 |
+**************************************************|
+ Progress of the MCMC simulation for 10000 draws
+    Every draw is saved via MCMC thinning
+ Press Esc to interrupt the computations
+**************************************************|
+**************************************************|
+bsvars: Bayesian Structural Vector Autoregressions|
+**************************************************|
+ Gibbs sampler for the SVAR model                 |
+**************************************************|
+ Progress of the MCMC simulation for 20000 draws
+    Every 2nd draw is saved via MCMC thinning
+ Press Esc to interrupt the computations
+**************************************************|</code></pre>
+</div>
+</div>
+</section>
+<section id="alternative-models-estimation-3" class="slide level2">
+<h2>Alternative Models Estimation</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="lower-triangular-model-with-stochastic-volatility-heteroskedastisity.">Lower-triangular model with Stochastic Volatility heteroskedastisity.</h3>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-8_2a0ef78df198d93db546548359218db8">
+<div class="sourceCode cell-code" id="cb12" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># estimation - lower-triangular SV heteroskedastic model</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="do">############################################################</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>spec_bsvar_sv <span class="ot">=</span> specify_bsvar_sv<span class="sc">$</span><span class="fu">new</span>(<span class="fu">as.matrix</span>(y), <span class="at">p =</span> p, <span class="at">stationary =</span> <span class="fu">rep</span>(<span class="cn">TRUE</span>, N))</span>
+<span id="cb12-4"><a href="#cb12-4"></a>spec_bsvar_sv<span class="sc">$</span>prior<span class="sc">$</span>A <span class="ot">=</span> A_mle</span>
+<span id="cb12-5"><a href="#cb12-5"></a></span>
+<span id="cb12-6"><a href="#cb12-6"></a>spec_bsvar_sv <span class="sc">|&gt;</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">estimate</span>(<span class="at">S =</span> S_burn) <span class="sc">|&gt;</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a>  <span class="fu">estimate</span>(<span class="at">S =</span> S, <span class="at">thin =</span> thin) <span class="ot">-&gt;</span> soe_bsvar_sv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**************************************************|
+bsvars: Bayesian Structural Vector Autoregressions|
+**************************************************|
+ Gibbs sampler for the SVAR-SV model              |
+   Non-centred SV model is estimated              |
+**************************************************|
+ Progress of the MCMC simulation for 10000 draws
+    Every draw is saved via MCMC thinning
+ Press Esc to interrupt the computations
+**************************************************|
+**************************************************|
+bsvars: Bayesian Structural Vector Autoregressions|
+**************************************************|
+ Gibbs sampler for the SVAR-SV model              |
+   Non-centred SV model is estimated              |
+**************************************************|
+ Progress of the MCMC simulation for 20000 draws
+    Every 2nd draw is saved via MCMC thinning
+ Press Esc to interrupt the computations
+**************************************************|</code></pre>
+</div>
+</div>
+</section>
+<section id="alternative-models-estimation-4" class="slide level2">
+<h2>Alternative Models Estimation</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+<h3 id="extended-model-with-stochastic-volatility-heteroskedastisity.">Extended model with Stochastic Volatility heteroskedastisity.</h3>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-9_f3c151a504082c37e77c4468a07d2431">
+<div class="sourceCode cell-code" id="cb14" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># estimation - extended SV heteroskedastic model</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="do">############################################################</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>spec_bsvar_lr_sv <span class="ot">=</span> specify_bsvar_sv<span class="sc">$</span><span class="fu">new</span>(<span class="fu">as.matrix</span>(y), <span class="at">p =</span> p, <span class="at">B =</span> B_LR, <span class="at">stationary =</span> <span class="fu">rep</span>(<span class="cn">TRUE</span>, N))</span>
+<span id="cb14-4"><a href="#cb14-4"></a>spec_bsvar_lr_sv<span class="sc">$</span>prior<span class="sc">$</span>A <span class="ot">=</span> A_mle</span>
+<span id="cb14-5"><a href="#cb14-5"></a></span>
+<span id="cb14-6"><a href="#cb14-6"></a>spec_bsvar_lr_sv <span class="sc">|&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>  <span class="fu">estimate</span>(<span class="at">S =</span> S_burn) <span class="sc">|&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a>  <span class="fu">estimate</span>(<span class="at">S =</span> S, <span class="at">thin =</span> thin) <span class="ot">-&gt;</span> soe_bsvar_lr_sv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**************************************************|
+bsvars: Bayesian Structural Vector Autoregressions|
+**************************************************|
+ Gibbs sampler for the SVAR-SV model              |
+   Non-centred SV model is estimated              |
+**************************************************|
+ Progress of the MCMC simulation for 10000 draws
+    Every draw is saved via MCMC thinning
+ Press Esc to interrupt the computations
+**************************************************|
+**************************************************|
+bsvars: Bayesian Structural Vector Autoregressions|
+**************************************************|
+ Gibbs sampler for the SVAR-SV model              |
+   Non-centred SV model is estimated              |
+**************************************************|
+ Progress of the MCMC simulation for 20000 draws
+    Every 2nd draw is saved via MCMC thinning
+ Press Esc to interrupt the computations
+**************************************************|</code></pre>
+</div>
+</div>
+</section>
+<section id="irfs-compute-impulse-responses" class="slide level2">
+<h2>IRFs: Compute impulse responses</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-10_a4bcaeceff317fbc8f4875bd7ab9901e">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>ir_bsvar0       <span class="ot">=</span> <span class="fu">compute_impulse_responses</span>(soe_bsvar0, <span class="at">horizon =</span> <span class="dv">20</span>)</span>
+<span id="cb16-2"><a href="#cb16-2"></a>ir_bsvar0[,<span class="dv">3</span>,,] <span class="ot">=</span> <span class="fl">0.25</span> <span class="sc">*</span> ir_bsvar0[,<span class="dv">3</span>,,] <span class="sc">/</span> <span class="fu">mean</span>(ir_bsvar0[<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,])</span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a>ir_bsvar        <span class="ot">=</span> <span class="fu">compute_impulse_responses</span>(soe_bsvar, <span class="at">horizon =</span> <span class="dv">20</span>)</span>
+<span id="cb16-5"><a href="#cb16-5"></a>ir_bsvar[,<span class="dv">3</span>,,]  <span class="ot">=</span> <span class="fl">0.25</span> <span class="sc">*</span> ir_bsvar[,<span class="dv">3</span>,,] <span class="sc">/</span> <span class="fu">mean</span>(ir_bsvar[<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,])</span>
+<span id="cb16-6"><a href="#cb16-6"></a></span>
+<span id="cb16-7"><a href="#cb16-7"></a>ir_bsvar_lr        <span class="ot">=</span> <span class="fu">compute_impulse_responses</span>(soe_bsvar_lr, <span class="at">horizon =</span> <span class="dv">20</span>)</span>
+<span id="cb16-8"><a href="#cb16-8"></a>ir_bsvar_lr[,<span class="dv">3</span>,,]  <span class="ot">=</span> <span class="fl">0.25</span> <span class="sc">*</span> ir_bsvar_lr[,<span class="dv">3</span>,,] <span class="sc">/</span> <span class="fu">mean</span>(ir_bsvar_lr[<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,])</span>
+<span id="cb16-9"><a href="#cb16-9"></a></span>
+<span id="cb16-10"><a href="#cb16-10"></a>ir_bsvar_sv        <span class="ot">=</span> <span class="fu">compute_impulse_responses</span>(soe_bsvar_sv, <span class="at">horizon =</span> <span class="dv">20</span>)</span>
+<span id="cb16-11"><a href="#cb16-11"></a>ir_bsvar_sv[,<span class="dv">3</span>,,]  <span class="ot">=</span> <span class="fl">0.25</span> <span class="sc">*</span> ir_bsvar_sv[,<span class="dv">3</span>,,] <span class="sc">/</span> <span class="fu">mean</span>(ir_bsvar_sv[<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,])</span>
+<span id="cb16-12"><a href="#cb16-12"></a></span>
+<span id="cb16-13"><a href="#cb16-13"></a>ir_bsvar_lr_sv        <span class="ot">=</span> <span class="fu">compute_impulse_responses</span>(soe_bsvar_lr_sv, <span class="at">horizon =</span> <span class="dv">20</span>)</span>
+<span id="cb16-14"><a href="#cb16-14"></a>ir_bsvar_lr_sv[,<span class="dv">3</span>,,]  <span class="ot">=</span> <span class="fl">0.25</span> <span class="sc">*</span> ir_bsvar_lr_sv[,<span class="dv">3</span>,,] <span class="sc">/</span> <span class="fu">mean</span>(ir_bsvar_lr_sv[<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="irfs-zero-vs.-mle-prior-mean" class="slide level2">
+<h2>IRFs: Zero vs.&nbsp;MLE prior mean</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="irfs-recursive-vs.-extended-homosk" class="slide level2">
+<h2>IRFs: Recursive vs.&nbsp;Extended (homosk)</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="irfs-homosk-vs.-sv-recursive" class="slide level2">
+<h2>IRFs: Homosk vs.&nbsp;SV (Recursive)</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="irfs-homosk-vs.-sv-extended" class="slide level2">
+<h2>IRFs: Homosk vs.&nbsp;SV (Extended)</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="sds-homoskedastic-vs.-sv-recursive" class="slide level2">
+<h2>SDs: homoskedastic vs.&nbsp;SV (Recursive)</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="sds-homoskedastic-vs.-sv-extended" class="slide level2">
+<h2>SDs: homoskedastic vs.&nbsp;SV (Extended)</h2>
+<div class="footer">
+<p><a href="https://bsvars.github.io/2024-10-be24-bsvars">Bayesian Structural VARs</a></p>
+</div>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="section-2" class="slide level2" data-background-color="#ff69b4">
+<h2></h2>
+<p><img data-src="social.png" class="absolute" style="top: 30px; right: 250px; width: 700px; "></p>
 <div class="footer footer-default">
 
 </div>
@@ -1542,6 +1551,44 @@ p(\mathbf{B}|Y,X,\mathbf{A}, \gamma_B)&amp;\propto
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
