@@ -1,9 +1,8 @@
 
 # install packages
 ############################################################
-# install.packages("devtools")
-# devtools::install_git("https://github.com/donotdespair/bsvars.git")
-# devtools::install_git("https://github.com/donotdespair/bsvarTVPs.git")
+# install.packages("bsvars")")
+# install.packages("bsvarSIGNs")
 
 # Gross domestic product (GDP); Chain volume
 rgdp_dwnld      = readrba::read_rba(series_id = "GGDPCVGDP")
@@ -29,7 +28,11 @@ rtwi            = xts::to.quarterly(rtwi, OHLC = FALSE)
 
 y               = na.omit(merge(drgdp, pi, cr, rtwi))
 y
-plot(y, legend.loc = "bottomright")
+plot(y, 
+     main = "Australian monetary system",
+     legend.loc = "bottomleft", 
+     col = c("#FF00FF","#990099","#ff69b4","#330033")
+)
 
 # setup
 ############################################################
@@ -78,24 +81,6 @@ spec_bsvar_lr |>
   estimate(S = S_burn) |> 
   estimate(S = S, thin = thin) -> soe_bsvar_lr
 
-# estimation - lower-triangular MS heteroskedastic model
-############################################################
-spec_bsvar_msh    = specify_bsvar_msh$new(as.matrix(y), p = p, M = 2, stationary = rep(TRUE, N))
-spec_bsvar_msh$prior$A = A_mle
-
-spec_bsvar_msh |> 
-  estimate(S = S_burn) |> 
-  estimate(S = S, thin = thin) -> soe_bsvar_msh
-
-# estimation - extended MS heteroskedastic model
-############################################################
-spec_bsvar_lr_msh = specify_bsvar_msh$new(as.matrix(y), p = p, B = B_LR, M = 2, stationary = rep(TRUE, N))
-spec_bsvar_lr_msh$prior$A = A_mle
-
-spec_bsvar_lr_msh |> 
-  estimate(S = S_burn) |> 
-  estimate(S = S, thin = thin) -> soe_bsvar_lr_msh
-
 # estimation - lower-triangular SV heteroskedastic model
 ############################################################
 spec_bsvar_sv = specify_bsvar_sv$new(as.matrix(y), p = p, stationary = rep(TRUE, N))
@@ -120,15 +105,11 @@ save(
   spec_bsvar0,
   spec_bsvar,
   spec_bsvar_lr,
-  spec_bsvar_msh,
-  spec_bsvar_lr_msh,
   spec_bsvar_sv,
   spec_bsvar_lr_sv,
   soe_bsvar0,
   soe_bsvar,
   soe_bsvar_lr,
-  soe_bsvar_msh,
-  soe_bsvar_lr_msh,
   soe_bsvar_sv,
   soe_bsvar_lr_sv,
   file = "soe_bsvar.rda"
